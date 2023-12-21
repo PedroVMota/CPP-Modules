@@ -1,5 +1,6 @@
 {
 	"files.associations": {
+		"iomanip": "cpp",
 		"array": "cpp",
 		"atomic": "cpp",
 		"bit": "cpp",
@@ -14,6 +15,7 @@
 		"cstdint": "cpp",
 		"cstdio": "cpp",
 		"cstdlib": "cpp",
+		"ctime": "cpp",
 		"cwchar": "cpp",
 		"cwctype": "cpp",
 		"deque": "cpp",
@@ -41,10 +43,9 @@
 		"new": "cpp",
 		"numbers": "cpp",
 		"ostream": "cpp",
+		"sstream": "cpp",
 		"stdexcept": "cpp",
 		"streambuf": "cpp",
-		"typeinfo": "cpp",
-		"weapon.hpp": "c",
-		"fstream": "cpp"
+		"typeinfo": "cpp"
 	}
 }

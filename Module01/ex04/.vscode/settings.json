@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"fstream": "cpp",
+		"string_view": "c",
+		"replace.hpp": "c"
+	}
+}

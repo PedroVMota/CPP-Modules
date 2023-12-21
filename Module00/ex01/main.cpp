@@ -16,13 +16,12 @@
 	- This effectively reduces the container size by the number of elements removed, which are destroyed.
 */
 
-std::string TrimStringWhiteSpace(std::string str)
+std::string trimString(std::string str)
 {
 	int start = -1;
-	int end = str.size();
-	std::string trimmedStr;
 	if (str.empty())
 		return str;
+	std::string trimmedStr;
 	while (std::isspace(str[++start]))
 		start++;
 	while (!std::isspace(str[start]))
@@ -39,21 +38,26 @@ std::string Input(std::string promptmsg)
 	std::string userInput = std::string();
 	std::getline(std::cin, userInput);
 	if(std::cin.eof())
-			return "EXIT";
+		return "EXIT";
 	while (userInput.empty())
 	{
 		std::cout << "Error: Empty field" << std::endl;
 		std::cout << "Input: ";
 		std::cout << promptmsg;
 		std::getline(std::cin, userInput);
+		if(std::cin.eof())
+			return "EXIT";
 	}
-	return TrimStringWhiteSpace(userInput);
+	return trimString(userInput);
 }
 
 int main(void)
 {
 	Phonebook phonebook;
 	std::string userInput;
+
+
+	///STUB - This function is just to fill all the contact list at once.
 	phonebook.add_test_data();
 
 	userInput = Input("Enter command: ");
