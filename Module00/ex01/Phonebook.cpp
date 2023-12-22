@@ -72,23 +72,24 @@ void Phonebook::add()
 		_contact[_index].setNickName(olddata[2]);
 		_contact[_index].setPhoneNumber(olddata[3]);
 		_contact[_index].setSecret(olddata[4]);
+		return ;
 	}
+	_index += 1;
 }
 
 void Phonebook::search()
 {
 	// Show all the contacts in the phonebook
-	std::cout << "┌─────────┬──────────┬──────────┬──────────┐\n";
+	std::cout << "┌───────────────────────────────────────────┐\n";
 	for (int i = 0; i < 8; i++)
 	{
 		std::cout << "│    " << i << "    │ ";
-		std::cout << trim(_contact[i].getFirstName(), 7)<< " │ ";
-		std::cout << trim(_contact[i].getLastName(), 7) << " │ ";
-		std::cout << trim(_contact[i].getNickName(), 7) << " │ \n";
-		if(i != 7)
-			std::cout << "├─────────┼──────────┼──────────┼──────────┤\n";
+		std::cout << std::setw(10) << trim(_contact[i].getFirstName(), 9)<< "│";
+		std::cout << std::setw(10) << trim(_contact[i].getLastName(), 9) << "│";
+		std::cout << std::setw(10) << trim(_contact[i].getNickName(), 9) << "│\n";
 	}
-		std::cout << "└─────────┴──────────┴──────────┴──────────┘\n";
+	std::cout << "└───────────────────────────────────────────┘\n";
+
 
 	// Ask the user to select a contact
 	std::string userInput;

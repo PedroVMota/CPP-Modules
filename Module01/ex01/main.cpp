@@ -4,7 +4,7 @@
 int main()
 {
 	int numZombies = 10;
-	std::string zombieName = "HordeMember";
+	std::string zombieName = "Execito de Portugal";
 
 	Zombie *zombieArray = zombieHorde(numZombies, zombieName);
 

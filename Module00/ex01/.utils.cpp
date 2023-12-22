@@ -37,7 +37,7 @@ bool isSomethingWrong(const std::string text, bool isPhoneNumber)
 	}
 	if(isPhoneNumber && !isNumber(text))
 	{
-		std::cerr << "The number is not valid" << std::endl;
+		std::cerr << "The Phone number must be all numbers." << std::endl;
 		return true;
 	}
 	return false;
