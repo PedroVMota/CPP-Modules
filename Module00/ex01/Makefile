@@ -5,10 +5,10 @@ NAME = phonebook
 all: $(NAME)
 
 $(NAME): $(obj)
-	g++ -Wall -Wextra -Werror -std=c++98 $(obj) -o $(NAME)
+	c++ -Wall -Wextra -Werror -std=c++98 $(obj) -o $(NAME)
 
 %.o: %.cpp
-	g++ -Wall -Wextra -Werror -std=c++98 -c $< -o $@
+	c++ -Wall -Wextra -Werror -std=c++98 -c $< -o $@
 
 clean:
 	rm -f $(obj)

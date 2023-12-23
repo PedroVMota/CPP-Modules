@@ -3,7 +3,7 @@
 
 int main()
 {
-	int numZombies = 10;
+	int numZombies = 999;
 	std::string zombieName = "Execito de Portugal";
 
 	Zombie *zombieArray = zombieHorde(numZombies, zombieName);

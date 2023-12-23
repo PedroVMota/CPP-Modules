@@ -3,6 +3,7 @@
 #include "Contact.hpp"
 
 bool isSomethingWrong(const std::string text, bool isPhoneNumber);
+std::string removeWhiteSpaces(std::string str);
 
 Contact::Contact()
 {
@@ -26,7 +27,7 @@ bool Contact::setFirstName(std::string str)
 	std::cout << "\033c";
 	if(isSomethingWrong(str, false))
 		return true;
-	_first_name = str;
+	_first_name = removeWhiteSpaces(str);
 	return false;
 }
 
@@ -35,7 +36,7 @@ bool Contact::setLastName(std::string str)
 	std::cout << "\033c";
 	if(isSomethingWrong(str, false))
 		return true;
-	_last_name = str;
+	_last_name = removeWhiteSpaces(str);
 	return false;
 }
 
@@ -44,7 +45,7 @@ bool Contact::setNickName(std::string str)
 	std::cout << "\033c";
 	if(isSomethingWrong(str, false))
 		return true;
-	_nickname = str;
+	_nickname = removeWhiteSpaces(str);
 	return false;
 }
 
@@ -53,7 +54,7 @@ bool Contact::setPhoneNumber(std::string str)
 	std::cout << "\033c";
 	if(isSomethingWrong(str, true))
 		return true;
-	_phone_number = str;
+	_phone_number = removeWhiteSpaces(str);
 	return false;
 }
 
@@ -62,6 +63,6 @@ bool Contact::setSecret(std::string str)
 	std::cout << "\033c";
 	if(isSomethingWrong(str, false))
 		return true;
-	_darkest_secret = str;
+	_darkest_secret = removeWhiteSpaces(str);
 	return false;
 }

@@ -40,55 +40,64 @@ void Phonebook::add()
 	olddata[3] = _contact[_index].getPhoneNumber();
 	olddata[4] = _contact[_index].getSecret();
 
-	std::cout << "\033c";
-	std::cout << "Enter first name: ";
-	std::getline(std::cin, input);
-	if(_contact[_index].setFirstName(input))
-		err = 1;
-	// ------------------------------------------------
-	std::cout << "Enter last name: ";
-	std::getline(std::cin, input);
-	if(_contact[_index].setLastName(input))
-		err = 1;
-	// ------------------------------------------------
-	std::cout << "Enter nickname: ";
-	std::getline(std::cin, input);
-	if(_contact[_index].setNickName(input))
-		err = 1;
-	// ------------------------------------------------
-	std::cout << "Enter phone number: ";
-	std::getline(std::cin, input);
-	if(_contact[_index].setPhoneNumber(input))
-		err = 1;
-	// ----------------------------------s--------------
-	std::cout << "Tell me want you really desire: ";
-	std::getline(std::cin, input);
-	if(_contact[_index].setSecret(input))
-		err = 1;
-	if(err == 1)
+	if(err == 0)
 	{
-		_contact[_index].setFirstName(olddata[0]);
-		_contact[_index].setLastName(olddata[1]);
-		_contact[_index].setNickName(olddata[2]);
-		_contact[_index].setPhoneNumber(olddata[3]);
-		_contact[_index].setSecret(olddata[4]);
-		return ;
+		std::cout << "\033c";
+		std::cout << "Enter first name: ";
+		std::getline(std::cin, input);
+		if(_contact[_index].setFirstName(input))
+			err = 1;
 	}
+	if(err == 0)
+	{
+		std::cout << "Enter last name: ";
+		std::getline(std::cin, input);
+		if(_contact[_index].setLastName(input))
+			err = 1;
+	}
+	if(err == 0)
+	{
+		std::cout << "Enter nickname: ";
+		std::getline(std::cin, input);
+		if(_contact[_index].setNickName(input))
+			err = 1;
+	}
+	if(err == 0)
+	{
+		std::cout << "Enter phone number: ";
+		std::getline(std::cin, input);
+		if(_contact[_index].setPhoneNumber(input))
+			err = 1;
+	}
+	if(err == 0)
+	{
+		std::cout << "Tell me want you really desire: ";
+		std::getline(std::cin, input);
+		if(_contact[_index].setSecret(input))
+			err = 1;
+	}
+	err == 1 ? _contact[_index].setFirstName(olddata[0]) : 0;
+	err == 1 ? _contact[_index].setLastName(olddata[1]) : 0;
+	err == 1 ? _contact[_index].setNickName(olddata[2]) : 0;
+	err == 1 ? _contact[_index].setPhoneNumber(olddata[3]) : 0;
+	err == 1 ? _contact[_index].setSecret(olddata[4]) : 0;
 	_index += 1;
 }
 
 void Phonebook::search()
 {
 	// Show all the contacts in the phonebook
-	std::cout << "┌───────────────────────────────────────────┐\n";
+	std::cout << "┌──────────────────────────────────────────┐\n";
 	for (int i = 0; i < 8; i++)
 	{
-		std::cout << "│    " << i << "    │ ";
+		if(_contact[i].getFirstName().empty())
+			break ;
+		std::cout << "│    " << i << "    │";
 		std::cout << std::setw(10) << trim(_contact[i].getFirstName(), 9)<< "│";
 		std::cout << std::setw(10) << trim(_contact[i].getLastName(), 9) << "│";
 		std::cout << std::setw(10) << trim(_contact[i].getNickName(), 9) << "│\n";
 	}
-	std::cout << "└───────────────────────────────────────────┘\n";
+	std::cout << "└──────────────────────────────────────────┘\n";
 
 
 	// Ask the user to select a contact

@@ -3,10 +3,10 @@
 Zombie::Zombie() : _name("Unnamed") {}
 
 Zombie::Zombie(std::string name) : _name(name){
-	std::cout << "Zombie " << this->_name << " constructor here" << std::endl;
+	std::cout << "\e[0;32m" <<  "Zombie " << this->_name << " constructor here" << "\e[0m" << std::endl;
 }
 Zombie::~Zombie() {
-	std::cout << "Zombie " << _name << " Deconstructor here" << std::endl;
+	std::cout << "\e[1;31m" << "Zombie " << _name << " Deconstructor here" << "\e[0m" << std::endl;
 }
 
 void Zombie::announce(void){

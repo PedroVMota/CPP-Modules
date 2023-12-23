@@ -58,8 +58,9 @@ int main(void)
 
 
 	///STUB - This function is just to fill all the contact list at once.
-	phonebook.add_test_data();
+	// phonebook.add_test_data();
 
+	std::cout << "Commands: ADD/add | SEARCH/search | EXIT/exit" << std::endl;
 	userInput = Input("Enter command: ");
 	while (userInput != "EXIT" && userInput != "exit")
 	{
@@ -70,6 +71,7 @@ int main(void)
 		else
 			std::cout << "Error: Invalid command" << std::endl;
 		userInput = Input("Enter command: ");
+		std::cout << "Commands: ADD/add | SEARCH/search | EXIT/exit" << std::endl;
 	}
 	return 0;
 }

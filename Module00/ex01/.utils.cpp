@@ -42,3 +42,14 @@ bool isSomethingWrong(const std::string text, bool isPhoneNumber)
 	}
 	return false;
 }
+
+std::string removeWhiteSpaces(std::string str)
+{
+	std::string newStr = "";
+	int start = -1;
+	while(std::isspace(str[++start]))
+		start++;
+	while(start < (int)str.size())
+		newStr += str[start++];
+	return newStr;
+}

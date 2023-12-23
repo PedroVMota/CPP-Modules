@@ -29,25 +29,12 @@ Account::~Account()
 	std::cout << "index:" << _accountIndex << ";amount:" << _amount << ";closed\n";
 }
 
-int Account::getNbAccounts()
-{
-	return Account::_nbAccounts;
-}
-
-int Account::getTotalAmount()
-{
-	return Account::_totalAmount;
-}
-
-int Account::getNbDeposits()
-{
-	return Account::_totalNbDeposits;
-}
-
-int Account::getNbWithdrawals()
-{
-	return Account::_totalNbWithdrawals;
-}
+//This second return the number.
+int Account::getNbAccounts(){return Account::_nbAccounts;}
+int Account::getTotalAmount(){return Account::_totalAmount;}
+int Account::getNbDeposits(){return Account::_totalNbDeposits;}
+int Account::getNbWithdrawals(){return Account::_totalNbWithdrawals;}
+int Account::checkAmount() const {return _amount;}
 
 void Account::displayAccountsInfos()
 {
@@ -55,10 +42,6 @@ void Account::displayAccountsInfos()
 	std::cout << "accounts:" << _nbAccounts << ";total:" << _totalAmount << ";deposits:" << _totalNbDeposits << ";withdrawals:" << _totalNbWithdrawals << "\n";
 }
 
-int Account::checkAmount() const
-{
-	return _amount;
-}
 
 void Account::displayStatus() const
 {
@@ -70,7 +53,7 @@ void Account::_displayTimestamp(void)
 {
 	std::time_t t = std::time(0);
 	std::tm *now = std::localtime(&t);
-	char buf[80];
+	char buf[100];
 	std::strftime(buf, sizeof(buf), "[%Y%m%d_%H%M%S] ", now);
 	std::cout << buf;
 }
