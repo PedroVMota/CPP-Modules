@@ -1,10 +1,10 @@
-CC = c++
+CC = g++
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = Harl.cpp main.cpp
-obj = $(src:.cpp=.o)
+SRC = Fixed.cpp main.cpp
+obj = $(SRC:.cpp=.o)
 
-NAME = Zombie
+NAME = Fixed
 
 all: $(NAME)
 

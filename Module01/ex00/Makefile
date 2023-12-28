@@ -1,4 +1,4 @@
-CC = g++
+CC = c++
 CFLAGS = -Wall -Wextra -Werror
 
 SRC = newZombie.cpp randomChump.cpp Zombie.cpp main.cpp
