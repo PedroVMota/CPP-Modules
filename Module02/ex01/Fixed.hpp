@@ -5,17 +5,22 @@
 class Fixed
 {
 private:
-    int _integer;
-    static const int _const_integer = 8;
+    int _rawBi;
+    static const int _bitShift = 8;
 public:
     Fixed();
     Fixed(const Fixed &t);
+    Fixed(const int &t);
     Fixed(const float &t);
+    void setRawBits(int const raw);
+    int getRawBits(void);
     Fixed &operator=(const Fixed &other);
-    int toInt();
+    int toInt() const;
+    float toFloat() const;
     ~Fixed();
+    
 };
 
-std::ostream operator<<(std::ostream &os, const Fixed &d);
+std::ostream& operator<<( std::ostream& os, const Fixed& fixed );
 
 
