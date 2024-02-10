@@ -1,4 +1,4 @@
-CC = c++
+CC = c++ -g
 CFLAGS = -Wall -Wextra -Werror
 
 SRC = Fixed.cpp main.cpp
