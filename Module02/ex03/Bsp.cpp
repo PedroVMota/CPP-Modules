@@ -1,5 +1,10 @@
 #include "Point.hpp"
 
+float triangleFormula(Point p1, Point p2, Point p3)
+{
+    return (p1.getX() - p3.getX()) * (p2.getY() - p3.getY()) - (p2.getX() - p3.getX()) * (p1.getY() - p3.getY());
+}
+
 /// @brief Check if a point is inside a triangle
 /// @param a first point of the triangle
 /// @param b second point of the triangle
@@ -7,12 +12,15 @@
 /// @param point point to check
 /// @return true is is inside, false otherwise
 bool bsp(Point const a, Point const b, Point const c, Point const point){
-    double area = 0.5 * (a.getX() * (b.getY() - c.getY()) + b.getX() * (c.getY() - a.getY()) + c.getX() * (a.getY() - b.getY()));
-    double area1 = 0.5 * (point.getX() * (b.getY() - c.getY()) + b.getX() * (c.getY() - point.getY()) + c.getX() * (point.getY() - b.getY()));
-    double area2 = 0.5 * (a.getX() * (point.getY() - c.getY()) + point.getX() * (c.getY() - a.getY()) + c.getX() * (a.getY() - point.getY()));
-    double area3 = 0.5 * (a.getX() * (b.getY() - point.getY()) + b.getX() * (point.getY() - a.getY()) + point.getX() * (a.getY() - b.getY()));
-    double epsilon = 1e-10; // tolerance value
-    if (std::fabs(area - (area1 + area2 + area3)) < epsilon)
-        return true;
-    return false;
+    float d1, d2, d3;
+    bool has_neg, has_pos;
+
+    d1 = triangleFormula(point, a, b);
+    d2 = triangleFormula(point, b, c);
+    d3 = triangleFormula(point, c, a);
+
+    has_neg = (d1 < 0) || (d2 < 0) || (d3 < 0);
+    has_pos = (d1 > 0) || (d2 > 0) || (d3 > 0);
+
+    return !(has_neg && has_pos);
 }

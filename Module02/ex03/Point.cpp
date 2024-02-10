@@ -16,14 +16,20 @@ Point &Point::operator=(const Point &other)
 	return *this;
 }
 
-float Point::getX(void) const
+int Point::getX(void) const
 {
-	return this->_x.toFloat();
+	return this->_x.toInt();
 }
 
-float Point::getY(void) const
+int Point::getY(void) const
 {
-	return this->_y.toFloat();
+	return this->_y.toInt();
 }
 
 Point::~Point(){};
+
+
+std::ostream& operator<<( std::ostream& os, const Point& fixed ){
+	os << fixed.getX() << "," << fixed.getY();
+	return os;
+}

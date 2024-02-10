@@ -14,7 +14,9 @@ class Point{
 		bool bsp( Point const a, Point const b, Point const c, Point const point);
 		~Point();
 
-		float getX(void) const;
-		float getY(void) const;
+		int getX(void) const;
+		int getY(void) const;
 		
 };
+
+std::ostream& operator<<( std::ostream& os, const Point& fixed );
