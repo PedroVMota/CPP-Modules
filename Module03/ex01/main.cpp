@@ -1,10 +1,13 @@
-#include <ClapTrap.hpp>
+#include <ScavTrap.hpp>
+
 
 int main (void)
 {
     ClapTrap antonio = ClapTrap("Antonio");
-    ClapTrap sergio = ClapTrap("Sergio");
-    
-    antonio.attack("Sergio");
-    sergio.takeDamage(10);
+    ScavTrap antonio2 = ScavTrap("Antonio");
+    ScavTrap AntonioClone;
+
+
+    AntonioClone = antonio2;
+    AntonioClone.guardGate();
 }

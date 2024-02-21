@@ -1,7 +1,7 @@
 CC = c++ -g
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = main.cpp ClapTrap/ClapTrap.cpp
+SRC = main.cpp ClapTrap/ClapTrap.cpp ScavTrap/ScavTrap.cpp
 obj = $(SRC:.cpp=.o)
 
 NAME = a
@@ -11,10 +11,10 @@ INC = -IClapTrap/
 all: $(NAME)
 
 $(NAME): $(obj)
-	$(CC) -Wall -Wextra -Werror $(INC) -std=c++98 $(obj) -o $(NAME)
+	$(CC) -Wall -Wextra -Werror -IScavTrap/ -IClapTrap/ $(INC) -std=c++98 $(obj) -o $(NAME)
 
 %.o: %.cpp
-	$(CC) -Wall -Wextra -Werror $(INC) -std=c++98 -c $< -o $@
+	$(CC) -Wall -Wextra -Werror -IScavTrap/ -IClapTrap/ $(INC) -std=c++98 -c $< -o $@
 
 clean:
 	rm -f $(obj)

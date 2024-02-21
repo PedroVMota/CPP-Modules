@@ -1,6 +1,5 @@
 #include "ClapTrap.hpp"
 
-
 void ClapTrap::setEnergy(int n){
     _energyPoints = n;
 }
@@ -30,7 +29,7 @@ ClapTrap::ClapTrap(std::string n) : _name(n){
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &other)
 {
-    std::cout << "Assignation operator called" << std::endl;
+    std::cout << "ClapTrap Assignation operator called" << std::endl;
     if (this != &other)
     {
         _name = other._name;
@@ -47,12 +46,12 @@ void ClapTrap::attack(const std::string &target){
 
 void ClapTrap::takeDamage(unsigned int amout){
     this->_hitPoints -= amout;
-    std::cout << "TakeDamage function was called" << std::endl;
+    std::cout << "ClapTrap " << _name << " take " << amout << " Points of damage! " << std::endl;
 }
 void ClapTrap::beRepaired(unsigned int amout)
 {
     this->_hitPoints += amout;
-    std::cout << "beRepaired function was called" << std::endl;
+    std::cout << "ClapTrap " << _name << " was repaired" << std::endl;
 }
 
 std::string ClapTrap::getName() const{
