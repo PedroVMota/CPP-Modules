@@ -17,4 +17,10 @@ int main()
 	std::cout << "Value of \'msg\': " << msg << std::endl;
 	std::cout << "Value of \'stringPTR\': " << *stringPTR << std::endl;
 	std::cout << "Value of \'stringREF\': " << stringREF << std::endl;
+	std::cout << std::endl;
+	
+	msg = "Hi THIS IS BRAIN 2";
+	std::cout << "Value of \'msg\': " << msg << std::endl;
+	std::cout << "Value of \'stringPTR\': " << *stringPTR << std::endl;
+	std::cout << "Value of \'stringREF\': " << stringREF << std::endl;
 }

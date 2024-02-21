@@ -1,28 +1,14 @@
 #include <iostream>
+#include "ClapTrap.hpp"
 #include <string>
 
-class ScavTrap
+class ScavTrap: virtual public ClapTrap
 {
-private:
-    std::string _name;
-    int _energyPoints;
-    int _attackDamage;
-    int _hitPoints;
-
 public:
     ScavTrap();
     ScavTrap(std::string n);
-
-    void attack(const std::string &target);
-    void takeDamage(unsigned int amout);
-    void beRepaired(unsigned int amout);
-
+    ScavTrap& operator=(const ScavTrap &other);
     void guardGate();
-
-    std::string getName() const;
-    int getEnery() const;
-    int getAttack() const;
-    int getHitpoints() const;
     ~ScavTrap();
 };
 

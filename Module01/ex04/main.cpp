@@ -36,7 +36,7 @@ int main(int ac, char **av)
 	content = StringStream.str();
 	if (content.empty())
 	{
-		std::cerr << "The file is empty ... Please put something inside " << std::endl;
+		std::cerr << "The file is empty" << std::endl;
 		return 1;
 	}
 	// this is just a string manipulation.

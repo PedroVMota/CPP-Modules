@@ -3,7 +3,7 @@
 
 int main()
 {
-	int numZombies = 999;
+	int numZombies = 2;
 	std::string zombieName = "Execito de Portugal";
 
 	Zombie *zombieArray = zombieHorde(numZombies, zombieName);
@@ -14,6 +14,11 @@ int main()
 
 	// Delete the array when done
 	delete[] zombieArray;
+
+	Zombie *childZombie = newZombie("Child Zombie");
+
+	childZombie->announce();
+	delete childZombie;
 
 	return 0;
 }

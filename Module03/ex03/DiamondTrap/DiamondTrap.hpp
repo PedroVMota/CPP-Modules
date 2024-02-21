@@ -1,28 +1,24 @@
 #include <iostream>
 #include <string>
+#include <FragTrap.hpp>
+#include <ScavTrap.hpp>
 
-class DiamondTrap
+
+/*
+    Virtual Keyword
+    When a class is derived from multiple classes, 
+    the derived class inherits all the members of the base classes.
+
+    In other words, just make a "Copy of the class" and put it in the derived class.
+*/
+
+class DiamondTrap : virtual public FragTrap, virtual public ScavTrap
 {
-private:
-    std::string _name;
-    int _energyPoints;
-    int _attackDamage;
-    int _hitPoints;
-
-public:
-    DiamondTrap();
-    DiamondTrap(std::string n);
-
-    void attack(const std::string &target);
-    void takeDamage(unsigned int amout);
-    void beRepaired(unsigned int amout);
-
-    void guardGate();
-
-    std::string getName() const;
-    int getEnery() const;
-    int getAttack() const;
-    int getHitpoints() const;
-    ~DiamondTrap();
+    public:
+        DiamondTrap();
+        DiamondTrap(std::string n);
+        DiamondTrap &operator=(const DiamondTrap &diam);
+        ~DiamondTrap();
+        void whoAmI();
 };
 

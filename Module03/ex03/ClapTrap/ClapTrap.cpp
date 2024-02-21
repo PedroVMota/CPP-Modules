@@ -1,40 +1,57 @@
 #include "ClapTrap.hpp"
 
+void ClapTrap::setEnergy(int n){
+    _energyPoints = n;
+}
+
+void ClapTrap::setAttack(int n){
+    _attackDamage = n;
+}
+
+void ClapTrap::setHitpoints(int n){
+    _hitPoints = n;
+}
+
 ClapTrap::ClapTrap()
 {
     std::cout << "ClapTrap Construction called" << std::endl;
     _name = "Nameless";
-    _hitPoints = 10;
-    _energyPoints = 10;
-    _attackDamage = 10;
-
+    setEnergy(10);
+    setAttack(10);
+    setHitpoints(10);
 }
 ClapTrap::ClapTrap(std::string n) : _name(n){
     std::cout << "ClapTrap Construction called" << std::endl;
-    _hitPoints = 10;
-    _energyPoints = 10;
-    _attackDamage = 10;
+    setEnergy(10);
+    setAttack(10);
+    setHitpoints(10);
 }
 
+ClapTrap &ClapTrap::operator=(const ClapTrap &other)
+{
+    std::cout << "ClapTrap Assignation operator called" << std::endl;
+    if (this != &other)
+    {
+        _name = other._name;
+        _hitPoints = other._hitPoints;
+        _energyPoints = other._energyPoints;
+        _attackDamage = other._attackDamage;
+    }
+    return *this;
+}
 
 void ClapTrap::attack(const std::string &target){
     std::cout << "ClapTrap " << _name << " attacks " << target << " causing " << _attackDamage << " Points of damage! " << std::endl; 
 }
 
 void ClapTrap::takeDamage(unsigned int amout){
-    if((int)this->_hitPoints - (int)amout > 0)
-        this->_hitPoints -= amout;
-    else
-        this->_hitPoints = 0;
+    this->_hitPoints -= amout;
     std::cout << "ClapTrap " << _name << " take " << amout << " Points of damage! " << std::endl;
 }
 void ClapTrap::beRepaired(unsigned int amout)
 {
-    if(this->_hitPoints + amout <= 10)
-        this->_hitPoints += amout;
-    else
-        this->_hitPoints = 10;
-    std::cout << "ClaTrap " << _name << " was repaired" << std::endl;
+    this->_hitPoints += amout;
+    std::cout << "ClapTrap " << _name << " was repaired" << std::endl;
 }
 
 std::string ClapTrap::getName() const{
@@ -49,7 +66,6 @@ int ClapTrap::getAttack() const{
 int ClapTrap::getHitpoints() const{
     return _hitPoints;
 }
-
 
 ClapTrap::~ClapTrap()
 {

@@ -1,29 +1,14 @@
 #include <iostream>
 #include <string>
+#include <ClapTrap.hpp>
 
-class FragTrap
+class FragTrap : virtual public ClapTrap
 {
-private:
-    std::string _name;
-    int _energyPoints;
-    int _attackDamage;
-    int _hitPoints;
-
 public:
     FragTrap();
     FragTrap(std::string n);
-
-    void attack(const std::string &target);
-    void takeDamage(unsigned int amout);
-    void beRepaired(unsigned int amout);
-
-    void hightFivesGuys();
-    
-
-    std::string getName() const;
-    int getEnery() const;
-    int getAttack() const;
-    int getHitpoints() const;
+    FragTrap &operator=(const FragTrap &frag);
     ~FragTrap();
+    void hightFivesGuys();
 };
 

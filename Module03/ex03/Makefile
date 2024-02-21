@@ -1,7 +1,7 @@
 CC = c++ -g
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = main.cpp ClapTrap/ClapTrap.cpp ScavTrap/ScavTrap.cpp FragTrap/FragTrap.cpp
+SRC = main.cpp ClapTrap/ClapTrap.cpp ScavTrap/ScavTrap.cpp FragTrap/FragTrap.cpp DiamondTrap/DiamondTrap.cpp
 obj = $(SRC:.cpp=.o)
 
 NAME = a
@@ -11,11 +11,11 @@ INC = -IScavTrap/ -IClapTrap/ -IFragTrap/ -IDiamondTrap/
 all: $(NAME)
 
 $(NAME): $(obj)
-	$(CC) -Wall -Wextra -Werror $(INC) $(INC) -std=c++98 $(obj) -o $(NAME)
+	$(CC) -Wall -Wextra -Werror -Wshadow -Wno-shadow $(INC) -std=c++98 $(obj) -o $(NAME)
 
 %.o: %.cpp
-	$(CC) -Wall -Wextra -Werror $(INC) $(INC) -std=c++98 -c $< -o $@
-
+	$(CC) -Wall -Wextra -Werror -Wshadow -Wno-shadow $(INC) -std=c++98 -c $< -o $@
+# Wshadow -Wno-shadow to avoid shadowing warnings
 clean:
 	rm -f $(obj)
 

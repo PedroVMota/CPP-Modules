@@ -1,59 +1,34 @@
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap()
-{
+ScavTrap::ScavTrap() : ClapTrap(){
     std::cout << "ScavTrap Construction called" << std::endl;
-    _name = "Nameless";
-    _hitPoints = 100;
-    _energyPoints = 50;
-    _attackDamage = 20;
-
+    setEnergy(50);
+    setAttack(20);
 }
-ScavTrap::ScavTrap(std::string n) : _name(n){
+
+ScavTrap::ScavTrap(std::string n) : ClapTrap(n){
     std::cout << "ScavTrap Construction called" << std::endl;
-    _hitPoints = 100;
-    _energyPoints = 50;
-    _attackDamage = 20;
+    setEnergy(50);
+    setAttack(20);
 }
 
-
-void ScavTrap::attack(const std::string &target){
-    std::cout << "ScavTrap " << _name << " attacks " << target << " causing " << _attackDamage << " Points of damage! " << std::endl; 
-}
-
-void ScavTrap::takeDamage(unsigned int amout){
-    if((int)this->_hitPoints - (int)amout >= 0)
-        this->_hitPoints -= amout;
-    else
-        this->_hitPoints = 0;
-    std::cout << "ScavTrap " << _name << " take " << amout << " Points of damage! " << std::endl;
-}
-void ScavTrap::beRepaired(unsigned int amout)
+ScavTrap& ScavTrap::operator=(const ScavTrap &other)
 {
-    if(this->_hitPoints + amout <= 10)
-        this->_hitPoints += amout;
-    else
-        this->_hitPoints = 10;
-    std::cout << "beRepaired function was called" << std::endl;
+    std::cout << "Assignation operator called" << std::endl;
+    if (this != &other)
+    {
+        this->_name = other._name;
+        this->_hitPoints = other._hitPoints;
+        this->_energyPoints = other._energyPoints;
+        this->_attackDamage = other._attackDamage;
+    }
+    return *this;
 }
 
-void ScavTrap::guardGate(){
-    std::cout << "ScavTrap " << _name << " has entered in Gate keeper mode" << std::endl;
+void ScavTrap::guardGate()
+{
+    std::cout << "ScavTrap " << getName() << " has entered in Gate keeper mode" << std::endl;
 }
-
-std::string ScavTrap::getName() const{
-    return _name;
-}
-int ScavTrap::getEnery() const{
-    return _energyPoints;
-}
-int ScavTrap::getAttack() const{
-    return _attackDamage;
-}
-int ScavTrap::getHitpoints() const{
-    return _hitPoints;
-}
-
 
 ScavTrap::~ScavTrap()
 {
