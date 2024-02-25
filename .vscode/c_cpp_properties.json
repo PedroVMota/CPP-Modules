@@ -4,6 +4,11 @@
       "name": "linux-gcc-x64",
       "includePath": [
         "${workspaceFolder}/**"
+        "${workspaceFolder}/Module04/ex04/AMateria",
+        "${workspaceFolder}/Module04/ex04/ICharacter",
+        "${workspaceFolder}/Module04/ex04/Ice",
+        "${workspaceFolder}/Module04/ex04/Cure",
+        
       ],
       "compilerPath": "/usr/bin/gcc",
       "cStandard": "${default}",
