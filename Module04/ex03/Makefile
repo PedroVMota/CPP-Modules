@@ -1,12 +1,12 @@
 CC = c++ -g
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC =  AMateria/AMateria.cpp Ice/Ice.cpp Cure/Cure.cpp main.cpp
+SRC = AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp main.cpp
 obj = $(SRC:.cpp=.o)
 
 NAME = a
 
-INC = -I./AMateria -I./Ice/ -I./Cure/
+INC = -IInterfaces/ -IHeaders/
 
 all: $(NAME)
 
