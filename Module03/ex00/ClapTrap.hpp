@@ -1,3 +1,5 @@
+#ifndef CLAPTRAP_HPP
+#define CLAPTRAP_HPP
 #include <iostream>
 #include <string>
 
@@ -11,6 +13,7 @@ protected:
 public:
     ClapTrap();
     ClapTrap(std::string n);
+    ClapTrap(const ClapTrap &other);
     ClapTrap& operator=(const ClapTrap &other);
     void setEnergy(int n);
     void setAttack(int n);
@@ -25,3 +28,4 @@ public:
     ~ClapTrap();
 };
 
+#endif

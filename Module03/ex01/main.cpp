@@ -3,11 +3,16 @@
 
 int main (void)
 {
-    ClapTrap antonio = ClapTrap("Antonio");
-    ScavTrap antonio2 = ScavTrap("Antonio");
-    ScavTrap AntonioClone;
+    ClapTrap clap("Clap");
+    ScavTrap scav("Scav");
 
+    ClapTrap ClapClone(clap);
+    ScavTrap ScavClone(scav);
 
-    AntonioClone = antonio2;
-    AntonioClone.guardGate();
+    clap.attack("enemy");
+    scav.attack("enemy");
+
+    ClapClone.beRepaired(10);
+    ScavClone.beRepaired(10);
+
 }

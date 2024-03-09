@@ -27,6 +27,15 @@ ClapTrap::ClapTrap(std::string n) : _name(n){
     setHitpoints(10);
 }
 
+ClapTrap::ClapTrap(const ClapTrap &other)
+{
+    std::cout << "ClapTrap Copy constructor called" << std::endl;
+    _name = other._name;
+    _hitPoints = other._hitPoints;
+    _energyPoints = other._energyPoints;
+    _attackDamage = other._attackDamage;
+}
+
 ClapTrap &ClapTrap::operator=(const ClapTrap &other)
 {
     std::cout << "ClapTrap Assignation operator called" << std::endl;

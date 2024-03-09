@@ -16,6 +16,7 @@ protected:
 public:
     ClapTrap();
     ClapTrap(std::string n);
+    ClapTrap(const ClapTrap &other);
     ClapTrap& operator=(const ClapTrap &other);
     int getEnery() const;
     int getAttack() const;

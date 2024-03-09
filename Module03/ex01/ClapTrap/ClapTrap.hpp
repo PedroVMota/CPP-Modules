@@ -1,3 +1,4 @@
+#pragma once    
 #include <iostream>
 #include <string>
 
@@ -8,14 +9,14 @@ protected:
     int _energyPoints;
     int _attackDamage;
     int _hitPoints;
-    void setEnergy(int n);
-    void setAttack(int n);
-    void setHitpoints(int n);
-
 public:
     ClapTrap();
     ClapTrap(std::string n);
+    ClapTrap(const ClapTrap &other);
     ClapTrap& operator=(const ClapTrap &other);
+    void setEnergy(int n);
+    void setAttack(int n);
+    void setHitpoints(int n);
     int getEnery() const;
     int getAttack() const;
     int getHitpoints() const;

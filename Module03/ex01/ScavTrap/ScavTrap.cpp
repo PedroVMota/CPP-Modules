@@ -12,6 +12,11 @@ ScavTrap::ScavTrap(std::string n) : ClapTrap(n){
     setAttack(20);
 }
 
+ScavTrap::ScavTrap(const ScavTrap &other) : ClapTrap(other)
+{
+    std::cout << "Copy constructor called" << std::endl;
+}
+
 ScavTrap& ScavTrap::operator=(const ScavTrap &other)
 {
     std::cout << "Assignation operator called" << std::endl;

@@ -14,6 +14,11 @@ FragTrap::FragTrap(std::string n) : ClapTrap(n)
     setAttack(30);
 }
 
+FragTrap::FragTrap(const FragTrap &frag) : ClapTrap(frag)
+{
+    std::cout << "Copy constructor called" << std::endl;
+}
+
 FragTrap &FragTrap::operator=(const FragTrap &frag)
 {
     std::cout << "Assignation operator called" << std::endl;

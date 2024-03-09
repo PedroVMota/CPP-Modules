@@ -17,4 +17,10 @@ int main (void)
     frag.hightFivesGuys();
     diam.whoAmI();
 
+
+    ClapTrap ClapClone(clap);
+    ScavTrap ScavClone(scav);
+    FragTrap FragClone(frag);
+    DiamondTrap DiamClone(diam);
+
 }

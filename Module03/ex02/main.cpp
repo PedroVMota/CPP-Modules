@@ -5,6 +5,7 @@ int main (void)
 {
     ClapTrap antonio = ClapTrap("Antonio");
     ClapTrap sergio = ClapTrap("Sergio");
+
     
     antonio.attack("Sergio");
     sergio.takeDamage(10);
@@ -26,5 +27,9 @@ int main (void)
 
     sergio.beRepaired(10);
 
+    ScavTrap antonio4 = ScavTrap(antonio2);
+    ScavTrap sergio4 = ScavTrap(sergio2);
+    FragTrap antonio5 = FragTrap(antonio3);
 
+    
 }

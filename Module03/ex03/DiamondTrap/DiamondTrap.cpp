@@ -16,9 +16,18 @@ DiamondTrap::DiamondTrap() : ClapTrap(), FragTrap(), ScavTrap()
     std::cout << "DiamondTrap default constructor called" << std::endl;
 }
 
+DiamondTrap::DiamondTrap(const DiamondTrap &diam) : ClapTrap(diam), FragTrap(diam), ScavTrap(diam)
+{
+    std::cout << "Copy constructor called" << std::endl;
+    *this = diam;
+}
+
 DiamondTrap::DiamondTrap(std::string n) : ClapTrap(n + "_clap_name"), FragTrap(n), ScavTrap(n)
 {
     std::cout << "DiamondTrap name constructor called" << std::endl;
+    FragTrap::_hitPoints = 100;
+    FragTrap::_energyPoints = 30;
+    setEnergy(ScavTrap::_energyPoints);
 }
 
 DiamondTrap::~DiamondTrap()
