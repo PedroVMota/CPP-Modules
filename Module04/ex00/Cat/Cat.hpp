@@ -1,11 +1,10 @@
-#include <Animal.hpp>
+#include "../Animal/Animal.hpp"
 
-class Cat : virtual public Animal
-{
+class Cat : virtual public Animal {
 public:
-    Cat();
-    Cat(std::string type);
-    Cat &operator=(const Cat &other);
-    virtual ~Cat();
-    void makeSound() const;
+  Cat();
+  Cat(std::string type);
+  Cat &operator=(const Cat &other);
+  virtual ~Cat();
+  void makeSound() const;
 };

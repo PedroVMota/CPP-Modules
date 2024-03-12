@@ -6,7 +6,7 @@ obj = $(SRC:.cpp=.o)
 
 NAME = a
 
-INC = -I./Animal/ -I./Dog/ -I./Cat/ 
+INC = -I. 
 
 all: $(NAME)
 

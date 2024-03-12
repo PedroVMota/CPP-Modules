@@ -1,20 +1,15 @@
 #include "Dog.hpp"
 
-Dog::Dog() : Animal("Dog")
-{
-    std::cout << "Dog D Constructor" << std::endl;
+Dog::Dog() : Animal("Dog"){
     this->brain = new Brain();
 }
 
-Dog::Dog(std::string type) : Animal(type)
-{
-    std::cout << "Dog type constructor" << std::endl;
+Dog::Dog(std::string type) : Animal(type){
     this->brain = new Brain();
 }
 
 Dog &Dog::operator=(const Dog &other)
 {
-    std::cout << "Dog Assignation Operator" << std::endl;
     if (this == &other)
         return *this;
     this->setType(other.getType());
@@ -22,13 +17,18 @@ Dog &Dog::operator=(const Dog &other)
     return *this;
 }
 
-Dog::~Dog()
-{
-    std::cout << "Dog Default Deconstructor" << std::endl;
+Dog::~Dog(){
     delete this->brain;
 }
 
-void Dog::makeSound() const
-{
+void Dog::makeSound() const{
     std::cout << this->getType() << " Barks" << std::endl;
+}
+
+void Dog::setNewIdea(int index, std::string idea){
+    this->brain->setIdea(index, idea);
+}
+
+std::string Dog::getIdea(int index) const{
+    return this->brain->getIdea(index);
 }

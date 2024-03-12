@@ -1,12 +1,12 @@
 CC = c++ -g
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC =  main.cpp Bureaucrat/Bureaucrat.cpp
+SRC =  Animal/Animal.cpp Dog/Dog.cpp Cat/Cat.cpp Brain/Brain.cpp main.cpp
 obj = $(SRC:.cpp=.o)
 
 NAME = a
 
-INC = -I.
+INC = -I./Animal/ -I./Dog/ -I./Cat/  -I./Brain/
 
 all: $(NAME)
 

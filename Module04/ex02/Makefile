@@ -1,4 +1,4 @@
-CC = c++ -g
+CC = c++ -g 
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRC =  Animal/Animal.cpp Dog/Dog.cpp Cat/Cat.cpp Brain/Brain.cpp main.cpp

@@ -1,14 +1,17 @@
-#include <Animal.hpp>
-#include <Brain.hpp>
+#include "../Animal/Animal.hpp"
+#include "../Brain/Brain.hpp"
 
 class Cat : virtual public Animal
 {
 private:
-    Brain *brain;
+  Brain *brain;
+
 public:
-    Cat();
-    Cat(std::string type);
-    Cat &operator=(const Cat &other);
-    virtual ~Cat();
-    void makeSound() const;
+  Cat();
+  Cat(std::string type);
+  Cat &operator=(const Cat &other);
+  virtual ~Cat();
+  virtual void makeSound() const;
+  virtual void setNewIdea(int index, std::string idea);
+  virtual std::string getIdea(int index) const;
 };

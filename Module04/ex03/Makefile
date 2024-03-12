@@ -1,7 +1,7 @@
 CC = c++ -g
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp main.cpp
+SRC = Source/AMateria.cpp Source/Character.cpp Source/Cure.cpp Source/Ice.cpp Source/MateriaSource.cpp Source/main.cpp
 obj = $(SRC:.cpp=.o)
 
 NAME = a
