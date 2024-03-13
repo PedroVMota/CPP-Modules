@@ -1,4 +1,5 @@
 #include "./Bureaucrat.hpp"
+#include <ostream>
 
 Bureaucrat::Bureaucrat() : name("default") { grade = 150; }
 
@@ -41,4 +42,9 @@ void Bureaucrat::decrementGrade() {
   if (grade == 150)
     throw Bureaucrat::GradeTooLowException();
   grade++;
+}
+
+std::ostream &operator<<(std::ostream &os, const Bureaucrat &o) {
+  os << o.getName() << " Bureaucrat grade " << o.getGrade();
+  return os;
 }

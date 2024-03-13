@@ -1,4 +1,8 @@
+#pragma once
 #include <string>
+#include "../Form/Form.hpp"
+
+class Form;
 
 class Bureaucrat {
 private:
@@ -7,6 +11,7 @@ private:
 
 public:
   Bureaucrat();
+  Bureaucrat(std::string name);
   Bureaucrat(const Bureaucrat &other);
   Bureaucrat &operator=(const Bureaucrat &other);
   Bureaucrat(std::string name, int number);
@@ -15,6 +20,8 @@ public:
   void decrementGrade();
   const std::string &getName() const;
   int getGrade() const;
+
+  void signForm(const Form &e);
 
   class GradeTooHighException : public std::exception {
   public:
@@ -26,3 +33,5 @@ public:
     const char *what() const throw() { return "Grade too low"; }
   };
 };
+
+std::ostream &operator<<(std::ostream &os, const Bureaucrat &o);
