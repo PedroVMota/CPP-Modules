@@ -1,7 +1,7 @@
 CC = c++ -g
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
 
-SRC =  Animal/Animal.cpp Dog/Dog.cpp Cat/Cat.cpp main.cpp
+SRC = 	Animal/Animal.cpp Dog/Dog.cpp Cat/Cat.cpp WrongAnimal/WrongAnimal.cpp WrongCat/WrongCat.cpp main.cpp
 obj = $(SRC:.cpp=.o)
 
 NAME = a

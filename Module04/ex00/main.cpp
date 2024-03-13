@@ -1,6 +1,7 @@
 #include "Animal/Animal.hpp"
 #include "Cat/Cat.hpp"
 #include "Dog/Dog.hpp"
+#include "WrongCat/WrongCat.hpp"
 #include <iostream>
 
 int main() {
@@ -19,7 +20,15 @@ int main() {
   meta->makeSound(); // is not a dog not even a cat so the function should print
                      // something tell us that he can't make any sound
 
+  std::cout << "=========== WRONG ANIMAL =========\n";
+  WrongAnimal *wrongCat = new WrongCat();
+  Cat *kitty = new Cat();
+  wrongCat->makeSound();
+  kitty->makeSound();
+
   std::cout << std::endl << "======= Deconstructors ======" << std::endl;
+  delete wrongCat;
+  delete kitty;
   delete meta;
   delete j;
   delete i;

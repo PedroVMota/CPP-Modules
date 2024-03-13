@@ -11,7 +11,7 @@ public:
   Cat(std::string type);
   Cat &operator=(const Cat &other);
   virtual ~Cat();
-  virtual void makeSound() const;
+  void makeSound() const;
   virtual void setNewIdea(int index, std::string idea);
   virtual std::string getIdea(int index) const;
 };
