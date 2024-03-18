@@ -1,6 +1,6 @@
 #pragma once
-#include <string>
 #include "../Form/Form.hpp"
+#include <string>
 
 class Form;
 
@@ -21,7 +21,7 @@ public:
   const std::string &getName() const;
   int getGrade() const;
 
-  void signForm(const Form &e);
+  void signForm(Form &e);
 
   class GradeTooHighException : public std::exception {
   public:

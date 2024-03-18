@@ -46,12 +46,14 @@ void Bureaucrat::decrementGrade() {
   grade++;
 }
 
-void Bureaucrat::signForm(const Form &e)
-{
-  if (e.getGradeToSign() >= this->grade)
-    std::cout << this->name << " signs " << e.getName() << std::endl;
-  else
-    std::cout << this->name << " cannot sign " << e.getName() << " because his grade is too low" << std::endl;
+void Bureaucrat::signForm(Form &e) {
+  try {
+    e.beSigned(*this);
+    std::cout << name << " assigned " << e.getName() << std::endl;
+  } catch (const std::exception &) {
+    std::cout << name << " couldn't assigned " << e.getName()
+              << "because the grade is to low;" << std::endl;
+  }
 }
 
 std::ostream &operator<<(std::ostream &out, const Bureaucrat &bureaucrat) {

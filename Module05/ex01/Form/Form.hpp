@@ -1,7 +1,7 @@
 #pragma once
 #include "../Bureaucrat/Bureaucrat.hpp"
-#include <string>
 #include <iostream>
+#include <string>
 
 class Bureaucrat;
 
@@ -27,7 +27,7 @@ public:
   bool getSign() const;
   int getGradeToSign() const;
   int getGradeToExecute() const;
-  void beSigned(const Bureaucrat &other);
+  void beSigned(Bureaucrat &other);
 
 private:
   const std::string name;
