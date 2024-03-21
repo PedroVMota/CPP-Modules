@@ -1,7 +1,7 @@
 CC = c++ -g
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = AForm/AForm.cpp Bureaucrat/Bureaucrat.cpp main.cpp ShrubberyCreationForm/ShrubberyCreationForm.cpp RobotomyRequestForm/RobotomyRequestForm.cpp PresidentialPardonForm/PresidentialPardonForm.cpp
+SRC = AForm/AForm.cpp Bureaucrat/Bureaucrat.cpp main.cpp ShrubberyCreationForm/ShrubberyCreationForm.cpp RobotomyRequestForm/RobotomyRequestForm.cpp PresidentialPardonForm/PresidentialPardonForm.cpp Intern/Intern.cpp
 obj = $(SRC:.cpp=.o)
 
 NAME = a

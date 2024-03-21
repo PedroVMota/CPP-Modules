@@ -1,22 +1,39 @@
 #include "ShrubberyCreationForm/ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm/RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm/PresidentialPardonForm.hpp"
 
 int main(void) {
+  AForm *shrubbery = NULL;
+  AForm *Robotomy = NULL;
+  AForm *Presidential = NULL;
+  Bureaucrat *crata = NULL;
   try {
-    Bureaucrat crata = Bureaucrat("Antonio", 150);
-    std::cout << crata << std::endl;
+    crata = new Bureaucrat("Antonio", 1);
 
-
-    ShrubberyCreationForm shrubbery = ShrubberyCreationForm();
-    std::cout << shrubbery << std::endl;
-    crata.signForm(shrubbery);
+    shrubbery = new ShrubberyCreationForm("Natureza");
+    std::cout << *crata << std::endl << *shrubbery << std::endl;
+    crata->signForm(*shrubbery);
+    shrubbery->execute(*crata);
     
+    std::cout << "\n";
 
-    RobotomyRequestForm robotic = RobotomyRequestForm();
-    std::cout << robotic << std::endl;
-    crata.signForm(robotic);
+    Robotomy = new RobotomyRequestForm("Robotica");
+    std::cout << *crata << std::endl << *Robotomy << std::endl;
+    crata->signForm(*Robotomy);
+    Robotomy->execute(*crata);
+
+    std::cout << "\n";
+
+    Presidential = new PresidentialPardonForm("Presidential");
+    std::cout << *crata << std::endl << *Presidential << std::endl;
+    crata->signForm(*Presidential);
+    Presidential->execute(*crata);
 
   } catch (std::exception &e) {
     std::cerr << e.what() << std::endl;
   }
+  delete shrubbery;
+  delete crata;
+  delete Presidential;
+  delete Robotomy;
 }
