@@ -10,19 +10,44 @@ Intern &Intern::operator=(Intern const &o)
 }
 
 Intern::~Intern(){};
+
+
+static AForm	*makePresident(const std::string target)
+{
+	return (new PresidentialPardonForm(target));
+}
+
+static AForm	*makeRobot(const std::string target)
+{
+	return (new RobotomyRequestForm(target));
+}
+
+static AForm	*makeShrubbery(const std::string target)
+{
+	return (new ShrubberyCreationForm(target));
+}
+
+// Public Methods
 AForm *Intern::makeForm(std::string const &formType, std::string const &formName)
 {
-    if (!(formType == "RobotomyRequestForm" || formType == "PresidentialPardonForm" || formType == "ShrubberyCreationForm"))
-    {
-        std::cerr << "The intern couldn't find the form: " << formName << std::endl;
-        return NULL;
-    }
-    std::cout << "Intern creates " << formType  << std::endl;
-    if (formType == "RobotomyRequestForm")
-        return new RobotomyRequestForm(formName);
-    else if (formType == "PresidentialPardonForm")
-        return new PresidentialPardonForm(formName);
-    else if (formType == "ShrubberyCreationForm")
-        return new ShrubberyCreationForm(formName);
-    return NULL;
+	AForm *(*all_forms[])(const std::string target) = {
+        &makePresident,
+        &makeRobot,
+        &makeShrubbery
+    };
+
+	std::string forms[] = {
+        "Presidential Request",
+        "Robotomy Request",
+        "Shrubbery Request"
+    };
+
+	for (int i = 0; i < 3; i++)
+		if (formType == forms[i])
+		{
+			std::cout << "Intern creates " << formName << " now" << std::endl;
+			return (all_forms[i](formType));
+		}
+	std::cout << "Intern can not find the form: " << formName << std::endl;
+	return (NULL);
 }

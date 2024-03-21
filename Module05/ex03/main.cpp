@@ -2,31 +2,40 @@
 
 int main(void)
 {
-  Bureaucrat *c = NULL;
-  AForm *f = NULL;
-  Intern *i = NULL;
+  Intern intern;
+  AForm *paperwork;
+
   try
   {
-    i = new Intern();
-    c = new Bureaucrat("Andre Ventura", 140);
-
-    f = i->makeForm("RobotomyRequestForm", "Natu");
-    if (f)
+    Bureaucrat b("Bureaucrat", 1);
+    for (int i = 0; i < 4; i++)
     {
-      f = i->makeForm("a", "Natu");
-      c->signForm(*f);
-      f->execute(*c);
+      switch (i)
+      {
+      case 0:
+        paperwork = intern.makeForm("Presidential Request", "Shrub");
+        break;
+      case 1:
+        paperwork = intern.makeForm("Robotomy Request", "Robot");
+        break;
+      case 2:
+        paperwork = intern.makeForm("Shrubbery Request", "Pres");
+        break;
+      default:
+        paperwork = intern.makeForm("HumanRights", "no");
+      }
+
+      if (paperwork)
+      {
+        b.signForm(*paperwork);
+        b.executeForm(*paperwork);
+        delete paperwork;
+        std::cout << "\n";
+      }
     }
   }
-  catch (std::exception &e)
+  catch (const std::exception &e)
   {
-    std::cerr << e.what() << std::endl;
+    std::cerr << e.what() << '\n';
   }
-  std::cout << "\n\n\n\n";
-  if (c)
-    delete c;
-  if (i)
-    delete i;
-  if (f)
-    delete f;
 }

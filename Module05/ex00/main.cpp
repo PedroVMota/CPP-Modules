@@ -1,14 +1,19 @@
 #include "Bureaucrat/Bureaucrat.hpp"
 #include <iostream>
 
-int main(void) {
-  try {
-    Bureaucrat burucrat3("Chess", 161);
-    Bureaucrat burucrata2("Chess", 0);
+int main( void )
+{
+    try {
+        Bureaucrat bureaucrat("ash", 2);
 
-  } catch (const std::exception &e) {
-    std::cout << e.what() << std::endl;
-  }
+        std::cout << bureaucrat << std::endl;
 
-  return 0;
+        bureaucrat.incrementGrade();
+        std::cout << bureaucrat << std::endl;
+        bureaucrat.decrementGrade();
+        std::cout << bureaucrat << std::endl;
+    } catch (Bureaucrat::GradeTooHighException &e) {
+        std::cout << e.what() << std::endl;
+    }
+    return 0;
 }
