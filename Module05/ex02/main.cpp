@@ -8,7 +8,7 @@ int main(void) {
   AForm *Presidential = NULL;
   Bureaucrat *crata = NULL;
   try {
-    crata = new Bureaucrat("Antonio", 1);
+    crata = new Bureaucrat("Antonio", 6);
 
     shrubbery = new ShrubberyCreationForm("Natureza");
     std::cout << *crata << std::endl << *shrubbery << std::endl;

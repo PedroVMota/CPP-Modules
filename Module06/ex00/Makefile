@@ -1,12 +1,12 @@
 CC = c++ -g
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC =  Animal/Animal.cpp Dog/Dog.cpp Cat/Cat.cpp Brain/Brain.cpp main.cpp
+SRC =  main.cpp ScalarConverter.cpp
 obj = $(SRC:.cpp=.o)
 
 NAME = a
 
-INC = -I./Animal/ -I./Dog/ -I./Cat/  -I./Brain/
+INC = -I.
 
 all: $(NAME)
 
