@@ -7,6 +7,7 @@
 #include <cstdlib>
 
 Base * generate(void){
+
     srand(time(NULL));
     int i = rand() % 4;
     if (i == 0){
@@ -15,6 +16,7 @@ Base * generate(void){
     else if (i == 1){
         return new B;
     }
+    
     else if (i == 2){
         return new C;
     }

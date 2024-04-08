@@ -106,7 +106,6 @@ enum dataType
     _error,
 };
 
-
 bool ScalarConverter::checkCharacterValidation(const std::string &content) const
 {
     if (this->isNotNumericOrInifity(content))
@@ -121,6 +120,8 @@ bool ScalarConverter::checkIntegerValidation(const std::string &content) const
 
     size_t start = 0;
 
+    if(content[start] == '+' || content[start] == '-')
+        start = 1;
     if (this->isSignal(content))
         start = 1;
     while (start < content.length())
@@ -129,6 +130,7 @@ bool ScalarConverter::checkIntegerValidation(const std::string &content) const
             return false;
         start++;
     }
+
     return true;
 }
 
@@ -170,8 +172,6 @@ bool ScalarConverter::checkFloatValidation(const std::string &content) const
         start = 1;
     while (start < content.length())
     {
-        if(content[start] == 'f' && start == content.length() - 1)
-            return true;
         if (content.at(start) == '.')
         {
             read = true;
@@ -185,8 +185,8 @@ bool ScalarConverter::checkFloatValidation(const std::string &content) const
     }
     if (decimals > 8)
         return false;
-    if(content[content.length() - 1] != 'f')
-        return false;
+    if (content[content.length() - 1] != 'f' || content[content.length() - 1] == 'f')
+        return true;
     return true;
 }
 
@@ -194,11 +194,23 @@ void showChar(std::string const &content, bool isChar = true)
 {
     if (isChar == false)
     {
-        int Integer = scalar_atoi(content);
-        if(std::isprint(Integer))
-            std::cout << "Char: '" << static_cast<char>(Integer) << "'\n";
-        else
-            std::cout << "Char: Non displayable\n";
+        try
+        {
+            int Integer = scalar_atoi(content);
+            if (Integer > 122 || Integer < 0)
+            {
+                std::cout << "Char: impossible\n";
+                return;
+            }
+            if (std::isprint(Integer))
+                std::cout << "Char: '" << static_cast<char>(Integer) << "'\n";
+            else
+                std::cout << "Char: Non displayable\n";
+        }
+        catch (std::exception &e)
+        {
+            std::cout << "Fodase\n";
+        }
     }
     else
     {
@@ -219,14 +231,19 @@ void showInt(std::string const &content)
             std::cout << "Int: impossible\n";
             return;
         }
-        if (!std::isdigit(content[0]))
+        if (!std::isdigit(content[0]) && content[0] != '-' && content[0] != '+')
         {
             std::cout << "Int: " << static_cast<int>(content[0]) << "\n";
             return;
         }
         else
             i = scalar_atoi(content);
-        std::cout << "Int: " << i << "\n";
+        if (i == INT_MAX || i == INT_MIN)
+        {
+            std::cout << "int: impossible\n";
+            return;
+        }
+        std::cout << "int: " << i << std::endl;
     }
     catch (std::exception &e)
     {
@@ -239,7 +256,7 @@ void showFloat(std::string const &content)
     float f;
     try
     {
-        if (!std::isdigit(content[0]) && content != "-inff" && content != "+inff" && content != "nan" && content != "-inf" && content != "+inf")
+        if (!std::isdigit(content[0]) && content != "-inff" && content != "+inff" && content != "nan" && content != "-inf" && content != "+inf" && content[0] != '-' && content[0] != '+')
         {
             std::cout << "Float: " << static_cast<float>(content[0]) << ".0f\n";
             return;
@@ -268,7 +285,7 @@ void showDouble(std::string const &content)
     double d;
     try
     {
-        if (!std::isdigit(content[0]) && content != "-inf" && content != "+inf" && content != "nan" && content != "-inff" && content != "+inff")
+        if (!std::isdigit(content[0]) && content != "-inf" && content != "+inf" && content != "nan" && content != "-inff" && content != "+inff"  && content[0] != '-' && content[0] != '+')
         {
             std::cout << "Float: " << static_cast<float>(content[0]) << ".0\n";
             return;
