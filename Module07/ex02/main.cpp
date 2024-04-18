@@ -1,37 +1,24 @@
-#include "Array.hpp"
+#include <iostream>
+#include <Array.hpp>
+#include <time.h>
+#include <stdlib.h>
 
-// testing the class
 
-int main()
+#define MAX_VAL 750
+int main(int, char**)
 {
-
-    Array<int> a(100);
-
-    for (size_t i = 0; i < a.size(); i++)
+    Array<int> numbers(MAX_VAL);
+    int* mirror = new int[MAX_VAL];
+    srand(time(NULL));
+    for (int i = 0; i < MAX_VAL; i++)
     {
-        a[i] = i;
+        const int value = rand();
+        numbers[i] = value;
+        mirror[i] = value;
     }
-
-    for (size_t i = 0; i < a.size(); i++)
+    //SCOPE                                                                     
     {
-        std::cout << "a[" << i << "]: " << a[i] << ", ";
+        Array<int> tmp = numbers;
+        Array<int> test(tmp);
     }
-
-    std::cout << std::endl;
-    std::cout << std::endl;
-
-    Array<int> b(100);
-
-    b = a;
-
-    try{
-        for (size_t i = 0; i < 20; i++)
-            std::cout << "b[" << i << "]: " << b[i] << ", ";
-    }
-    catch (std::out_of_range &e){
-        std::cout << e.what() << std::endl;
-    }
-
-    std::cout << std::endl;
-    std::cout << std::endl;
 }
