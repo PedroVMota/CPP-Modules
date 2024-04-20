@@ -13,11 +13,10 @@ void print(int const &i)
 int main(void)
 {
     srand(time(NULL));
-
-    FuncType  *arr = new FuncType[10];
+    int  *arr = new int[10];
     for (int i = 0; i < 10; i++)
-        arr[i] = print;
-
+        arr[i] = 42;
     iter(arr, 10, print);
+    delete[] arr;
     return 0;
 }

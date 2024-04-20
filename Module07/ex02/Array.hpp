@@ -20,7 +20,7 @@ public:
             _array[i] = other._array[i];
     }
 
-    Array(size_t size): _size(size), _array(NULL);
+    Array(size_t size): _array(NULL), _size(size)
     {
         this->_array = new T[size];
     }

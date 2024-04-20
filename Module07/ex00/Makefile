@@ -1,10 +1,10 @@
 CC = c++ -g
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC =  main.cpp whatever.cpp
+SRC =  main.cpp
 obj = $(SRC:.cpp=.o)
 
-NAME = a
+NAME = Whatever
 
 INC = -I.
 
