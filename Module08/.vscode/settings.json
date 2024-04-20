@@ -1,9 +1,9 @@
 {
     "files.associations": {
-        "string": "cpp",
-        "array": "cpp",
+        "iosfwd": "cpp",
+        "ostream": "cpp",
         "iostream": "cpp",
-        "stdexcept": "cpp",
-        "map": "cpp"
+        "limits": "cpp",
+        "algorithm": "cpp"
     }
 }

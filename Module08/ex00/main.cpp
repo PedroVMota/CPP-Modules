@@ -6,7 +6,11 @@ int main() {
     vec.push_back('u');
     vec.push_back('t');
     vec.push_back('a');
-    vec.push_back('s');
+    vec.push_back('6');
+    vec.push_back('6');
+    vec.push_back('6');
+    vec.push_back('6');
+    vec.push_back('6');
 
     try {
         std::vector<char>::iterator result = easyfind(vec, '6');

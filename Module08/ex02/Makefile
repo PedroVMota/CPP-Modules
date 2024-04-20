@@ -1,7 +1,7 @@
 CC = c++ -g
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -pthread
 
-SRC =  main.cpp Serialize.cpp
+SRC =  main.cpp MutantStack.cpp
 obj = $(SRC:.cpp=.o)
 
 NAME = a
