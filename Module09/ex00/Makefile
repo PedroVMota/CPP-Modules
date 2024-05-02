@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -std=c++98
 SRC =  main.cpp BitcoinExchange.cpp
 obj = $(SRC:.cpp=.o)
 
-NAME = easyFind
+NAME = btc
 
 INC = -I.
 

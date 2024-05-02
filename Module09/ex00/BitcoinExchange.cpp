@@ -9,9 +9,9 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other)
     return *this;
 }
 
-BitcoinExchange::BitcoinExchange(std::string const &file)
+BitcoinExchange::BitcoinExchange(std::string const &file, std::string const &file2)
 {
-    std::ifstream f(file.c_str());                         // Opening the file
+    std::ifstream f(file.c_str());                 // Opening the file
     std::vector<std::vector<std::string> > csvData; // Creating a matrix of content.
     std::string line;                              // the current line.
     if (!f.is_open())
@@ -27,18 +27,92 @@ BitcoinExchange::BitcoinExchange(std::string const &file)
         csvData.push_back(csvLine);
     }
     this->_eachLine = csvData;
-};
-BitcoinExchange::~BitcoinExchange(){};
-
-void BitcoinExchange::printLines() const
-{
-    for (std::vector<std::vector<std::string> >::const_iterator line = _eachLine.begin(); line != _eachLine.end(); ++line)
+    this->_date = new dateType[this->_eachLine.size()];
+    f.close();
+    for (size_t i = 0; i < this->_eachLine.size(); i++)
     {
-        std::cout << "[";
-        for (std::vector<std::string>::const_iterator field = line->begin(); field != line->end(); ++field)
+        std::string date = this->_eachLine[i][0];
+        std::stringstream ss(date);
+        std::string field;
+        int j = 0;
+        while (std::getline(ss, field, '-'))
         {
-            std::cout << *field << " ";
+            try
+            {
+                if (j == 2)
+                    this->_date[i]._day = std::stoi(field);
+                if (j == 1)
+                    this->_date[i]._month = std::stoi(field);
+                if (j == 0)
+                    this->_date[i]._year = std::stoi(field);
+            }
+            catch (const std::exception &e)
+            {
+                std::cerr << "Error: " << e.what() << std::endl;
+            }
+            j++;
         }
-        std::cout << "]\n";
     }
-}
+
+    std::fstream f2(file2.c_str());
+    std::vector<std::vector<std::string> > csvData2;
+    std::string line2;
+    if (!f2.is_open())
+        throw std::runtime_error("Error opening the file.... Shutting down");
+    while (std::getline(f2, line2))
+    {
+        std::vector<std::string> csvLine2;
+        std::stringstream ss2(line2);
+        std::string field2;
+        while (std::getline(ss2, field2, '|'))
+            csvLine2.push_back(field2);
+        csvData2.push_back(csvLine2);
+    }
+    this->_eachLine_to_search = csvData2;
+    this->_date2 = new dateType[csvData2.size()];
+    f2.close();
+    for (size_t i = 0; i < csvData2.size(); i++)
+    {
+        std::string date = csvData2[i][0];
+        std::stringstream ss(date);
+        std::string field;
+        int j = 0;
+        while (std::getline(ss, field, '-'))
+        {
+            try
+            {
+                if (j == 2)
+                    this->_date2[i]._day = std::stoi(field);
+                if (j == 1)
+                    this->_date2[i]._month = std::stoi(field);
+                if (j == 0)
+                    this->_date2[i]._year = std::stoi(field);
+            }
+            catch (const std::exception &e)
+            {
+                std::cerr << "Error: " << e.what() << std::endl;
+            }
+            j++;
+        }
+    }
+
+    
+
+};
+
+void BitcoinExchange::Debug() const
+    {
+        for (size_t i = 0; i < _eachLine.size(); i++)
+        {
+            if(!_date[i].isvalid())
+                std::cout << "Invalid date: Date: " << i << std::endl;
+            else
+                std::cout << "Valid date" << std::endl;
+        }
+        std::cout << "--------- Testing the Search file ---------" << std::endl;
+        for (size_t i = 0; i < this->_eachLine_to_search.size(); i++)
+        {
+            std::cout <<">>"<< this->_eachLine_to_search[i][0] << "<<" << std::endl;
+        }
+    }
+BitcoinExchange::~BitcoinExchange(){};
