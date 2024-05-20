@@ -76,7 +76,13 @@ std::ostream &operator<<(std::ostream &os, Span const &ref)
 
     for (std::vector<int>::iterator it = arr.begin(); it != arr.end(); it++)
     {
-        os << *it << ',';
+        if(it == arr.begin())
+            os << "[" << *it << ", ";
+        else if (it == arr.end() - 1)
+            os << *it << "]";
+        else
+            os << *it << ", ";
+        
     }
     return os;
 }
