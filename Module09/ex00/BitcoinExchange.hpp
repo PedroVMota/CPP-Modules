@@ -9,6 +9,14 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <iostream>
+#include <vector>
+#include <sstream>
+#include <fstream>
+#include <string>
+#include <cmath>
+#include <stdexcept>
+
 
 #ifndef COLORS
 #define COLORS
@@ -28,19 +36,31 @@
 
 #endif
 
+
+typedef struct BlockChain{
+    int year;
+    int month;
+    int day;
+
+    double value;
+} BlockChain;
+
+
+
 class BitcoinExchange
 {
 private:
-    std::vector<std::vector<std::string> > db_lines;
-    std::vector<std::vector<std::string> > flines;
-
-public:
+    std::vector<std::string> db_lines;
+    std::vector<std::string> flines;
+    std::vector<BlockChain> dbBlockChain;
+    BitcoinExchange &operator=(BitcoinExchange const &);
+    long dateToDays(int year, int month, int day);
+    long dateDifference(const BlockChain &a, const BlockChain &b);
     BitcoinExchange();
+    void init(BlockChain s);
+public:
     BitcoinExchange(std::string const &, std::string const &);
     BitcoinExchange(const BitcoinExchange &);
     ~BitcoinExchange();
-
-    BitcoinExchange &operator=(BitcoinExchange const &);
-    void Debug() const;
-    void analize() const;
+    void analize();
 };
