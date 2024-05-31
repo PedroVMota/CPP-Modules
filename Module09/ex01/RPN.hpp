@@ -46,7 +46,6 @@ typedef struct CustomStack{
     {
       if(tempString.size() > 0)
       {
-        std::cout << MAGENTA << "Pushing: " << RESET << tempString << std::endl;
         ref.erase(0, tempString.size());
         stack.push(tempString);
       }

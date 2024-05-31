@@ -2,7 +2,8 @@ CC = c++ -g
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRC =  Main.cpp RPN.cpp
-obj = $(SRC:.cpp=.o)
+ASM = $(SRC:.cpp=.asm)
+OBJ = $(ASM:.s=.o)
 
 NAME = rpn
 
@@ -10,16 +11,20 @@ INC = -I.
 
 all: $(NAME)
 
-$(NAME): $(obj)
-	$(CC) $(CFLAGS) $(INC) $(obj) -o $(NAME)
+$(NAME): $(ASM) $(OBJ)
+	$(CC) $(CFLAGS) $(INC) $(OBJ) -o $(NAME)
 
-%.o: %.cpp
+%.asm: %.cpp
+	$(CC) $(CFLAGS) $(INC) -S $< -o $@
+
+%.o: %.s
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
 clean:
-	rm -f $(obj)
+	rm -f $(OBJ) $(ASM)
 
 fclean: clean
-	rm -f $(NAME) $(obj)
+	rm -f $(NAME)
 
 re: fclean all
 

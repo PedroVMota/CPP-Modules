@@ -211,6 +211,15 @@ void BitcoinExchange::analize()
     std::cout << flines[0][0] << std::endl;
     for (size_t i = 0; i < this->flines.size(); i++)
     {
+        int pipes = 0;
+        for(size_t j = 0; j < flines[i].size(); j++)
+            if(flines[i][j] == '|')
+                pipes++;
+        if(pipes != 1)
+        {
+            std::cerr << "Error: bad input => " << flines[i] << std::endl;
+            continue;
+        }
         std::stringstream iss(flines[i]);
         std::getline(iss, date, '|');
         std::getline(iss, value, '|');
