@@ -5,7 +5,7 @@ SRC =  Main.cpp RPN.cpp
 ASM = $(SRC:.cpp=.asm)
 OBJ = $(ASM:.s=.o)
 
-NAME = rpn
+NAME = RPN
 
 INC = -I.
 

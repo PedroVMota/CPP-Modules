@@ -36,39 +36,42 @@ bool RPN::tokenize(std::string &ref)
       stack.push(token);
   }
 
-  std::stack <std::string> temp = stack.stack;
+  std::list<std::string> temp = stack.stack;
   int operatorCount = 0;
   int operandCount = 0;
   while (!temp.empty())
   {
-    if (stack.isOperator(temp.top()))
+    if (stack.isOperator(temp.front()))
       operatorCount++;
     else
+    {
+      std::string operand = temp.front();
+      if(operand.size() > 1)
+        return false;
       operandCount++;
-    temp.pop();
+    }
+    temp.pop_front();
   }
   if (operatorCount != operandCount - 1)
     return false;
   return true;
 }
 
-// Calculate the result of the RPN expression
 bool RPN::calculate() {
-    std::stack<std::string> temp = stack.stack;
-    std::stack<double> result;
-
-    while (!temp.empty()) {
-        std::string token = temp.top();
-        temp.pop();
-        if (token == "+" || token == "-" || token == "*" || token == "/") {
+    std::list<std::string> temp = stack.stack;
+    std::list<double> result;
+    std::list<std::string>::iterator it = temp.begin();
+    while (it != temp.end()) {
+        std::string token = *it;
+        if (stack.isOperator(token)) {
             if (result.size() < 2) {
                 std::cout << RED << "Error: " << RESET << "Not enough operands" << std::endl;
                 return false;
             }
-            double b = result.top();
-            result.pop();
-            double a = result.top();
-            result.pop();
+            double b = result.back();
+            result.pop_back();
+            double a = result.back();
+            result.pop_back();
             double res;
             if (token == "+") res = a + b;
             else if (token == "-") res = a - b;
@@ -80,24 +83,26 @@ bool RPN::calculate() {
                 }
                 res = a / b;
             }
-            result.push(res);
+            result.push_back(res);
         } else {
             try {
                 double num = std::stod(token);
-                result.push(num);
+                result.push_back(num);
             } catch (const std::invalid_argument&) {
                 std::cout << RED << "Error: " << RESET << "Invalid number" << std::endl;
                 return false;
             }
         }
+        it++;
     }
 
     if (result.size() == 1) {
-        std::cout << "Result: " << result.top() << std::endl;
+        std::cout << "Result: " << result.back() << std::endl;
         return true;
     }
     return false;
 }
+
 
 RPN::RPN(std::string &ref) : stack()
 {
@@ -109,11 +114,11 @@ RPN::RPN(std::string &ref) : stack()
   }
   std::cout << GREEN << "Success: " << RESET << "Expression is valid" << std::endl;
   // inverse stack
-  std::stack<std::string> inverse;
+  std::list<std::string> inverse;
   while (!stack.stack.empty())
   {
-    inverse.push(stack.stack.top());
-    stack.stack.pop();
+    inverse.push_front(stack.stack.front());
+    stack.stack.pop_front();
   }
   stack.stack = inverse;
   calculate();

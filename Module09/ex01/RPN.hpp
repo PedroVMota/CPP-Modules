@@ -1,12 +1,12 @@
 #include <iostream>
 #include <string>
-#include <stack>
 #include <vector>
 #include <sstream>
 #include <cmath>
 #include <stdexcept>
 #include <algorithm>
 #include <functional>
+#include <list>
 
 
 /* Using c++ 98 */
@@ -27,8 +27,9 @@
 
 
 
+
 typedef struct CustomStack{
-  std::stack<std::string> stack;
+  std::list<std::string> stack;
 
   bool isOperator(std::string &ref)
   {
@@ -38,7 +39,7 @@ typedef struct CustomStack{
   void push(std::string &ref)
   {
 
-    std::stack<std::string> temp;
+    std::list<std::string> temp;
     std::istringstream iss(ref);
     std::string tempString = "";
 
@@ -47,7 +48,7 @@ typedef struct CustomStack{
       if(tempString.size() > 0)
       {
         ref.erase(0, tempString.size());
-        stack.push(tempString);
+        stack.push_front(tempString);
       }
     }
   }
