@@ -1,22 +1,30 @@
-#include <BitcoinExchange.hpp>
+#include "./BitcoinExchange.hpp"
+#include <stack>
+
+bool checkFileExtention(string file, string ext = "csv") {
+  return file.substr(file.find_last_of(".") + 1) == ext;
+}
+
+int main(int ac, char **av) {
 
 
-int main(int ac, char **av)
-{
-    (void)av;
-    if(ac != 2)
-    {
-        std::cerr << "Usage: ./btc <input file>" << std::endl;
-        return 1;
-    }
-    try{
-
-    BitcoinExchange data("data.csv", std::string(av[1]));
-    data.analize();
-    }
-    catch(std::exception &e)
-    {
-        std::cout << e.what() << std::endl;
-    }
-    // data.Debug();
+  if(ac != 2) {
+    std::cerr << "Usage: ./btc <file>\n";
+    return 1;
+  }
+  else if(string(av[1]) == "data.csv") {
+    std::cerr << RED << "Error: data.csv is a reserved file.\n" << RESET;
+    return 1;
+  }
+  else if(string(av[1]) == "") {
+    std::cerr << RED << "Error: Empty file.\n" << RESET;
+    return 1;
+  }
+  else if(!checkFileExtention(string(av[1]))) {
+    std::cerr << RED << "Error: Invalid file extention.\n" << RESET;
+    return 1;
+  }
+  BitcoinExchange center("input.csv");
+  center.Analyze(string(av[1]));
+  std::cout << "Exiting...\n";
 }

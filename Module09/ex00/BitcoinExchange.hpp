@@ -1,22 +1,14 @@
 #pragma once
 
-#include <iostream>
-#include <string>
-#include <algorithm>
-#include <climits>
 #include <cctype>
-#include <cstdlib>
-#include <vector>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <vector>
-#include <sstream>
-#include <fstream>
-#include <string>
 #include <cmath>
-#include <stdexcept>
-
+#include <cstdio>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <sstream>
+#include <string>
+#include <sys/types.h>
 
 #ifndef COLORS
 #define COLORS
@@ -36,31 +28,51 @@
 
 #endif
 
+typedef std::string string;
+typedef std::ifstream file;
+typedef std::istringstream buffer;
+typedef std::map<string, double> map;
 
-typedef struct BlockChain{
-    int year;
-    int month;
-    int day;
+# define INT_MAX 2147483647
 
-    double value;
-} BlockChain;
+typedef enum ERROR
+{
+  OK,
+  NEGATIVE,
+  RANGE,
+  UNKNOWN,
+  F_CHARACTER,
+  EMPTY,
+  DOT_ERROR,
+} ERROR;
 
 
+const char *errorToString(ERROR error);
+bool isLeapYear(int year);
+bool isValidDay(int month, int day, int year);
+std::string trim(const std::string &str);
 
 class BitcoinExchange
 {
 private:
-    std::vector<std::string> db_lines;
-    std::vector<std::string> flines;
-    std::vector<BlockChain> dbBlockChain;
-    BitcoinExchange &operator=(BitcoinExchange const &);
-    long dateToDays(int year, int month, int day);
-    long dateDifference(const BlockChain &a, const BlockChain &b);
-    BitcoinExchange();
-    void init(BlockChain s);
+  BitcoinExchange();
+  BitcoinExchange(const BitcoinExchange &);
+  BitcoinExchange &operator=(const BitcoinExchange &);
+
+  map _database;
+
+  bool fetchDatabase(const std::string &filename);
+  void printDatabase();
+  bool parseDate(const std::string &date);
+  ERROR checkValue(double value);
+  ERROR checkValue(const std::string &s);
+  int daysSinceEpoch(int year, int month, int day);
+  int daysBetweenDates(const std::string &date1, const std::string &date2);
+  int *getDate(const std::string &date);
+  map::iterator getClosest(std::string date);
+
 public:
-    BitcoinExchange(std::string const &, std::string const &);
-    BitcoinExchange(const BitcoinExchange &);
-    ~BitcoinExchange();
-    void analize();
+  BitcoinExchange(const std::string &filename);
+  ~BitcoinExchange() {};
+  void Analyze(const std::string &input);
 };
