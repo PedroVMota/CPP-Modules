@@ -5,7 +5,7 @@ SRC =  Main.cpp PmergeMe.cpp
 ASM = $(SRC:.cpp=.asm)
 OBJ = $(ASM:.s=.o)
 
-NAME = RPN
+NAME = ford_Johnson
 
 INC = -I.
 

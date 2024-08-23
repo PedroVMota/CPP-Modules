@@ -1,5 +1,5 @@
 CC = c++ -g
-CFLAGS = --std=c++98 #-Wall -Wextra -Werror 
+CFLAGS = --std=c++98 -Wall -Wextra -Werror 
 SRC =  main.cpp BitcoinExchange.cpp
 obj = $(SRC:.cpp=.o)
 

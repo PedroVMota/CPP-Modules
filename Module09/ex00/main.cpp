@@ -24,7 +24,7 @@ int main(int ac, char **av) {
     std::cerr << RED << "Error: Invalid file extention.\n" << RESET;
     return 1;
   }
-  BitcoinExchange center("input.csv");
+  BitcoinExchange center;
   center.Analyze(string(av[1]));
   std::cout << "Exiting...\n";
 }

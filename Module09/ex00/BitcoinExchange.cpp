@@ -1,6 +1,6 @@
 #include "./BitcoinExchange.hpp"
 
-// Function to convert string to any type
+
 template <class Type>
 Type convertTo(const std::string &_content)
 {
@@ -70,17 +70,17 @@ std::string trim(const std::string &str)
     return (start == std::string::npos) ? "" : str.substr(start, end - start + 1);
 }
 
-// Function to trim whitespace from a string
+
 
 std::map<string, double> split(const std::string &_line, char delimiter,
-                               bool toConvert)
+                               bool toConvert = false)
 {
     std::map<string, double> splitted;
     std::string key_str, value_str;
     std::istringstream keyValueStream(_line);
     std::getline(keyValueStream, key_str, delimiter);
     std::getline(keyValueStream, value_str);
-    double Value;
+    double Value = 0;
     if (toConvert)
     {
         try
@@ -117,7 +117,7 @@ bool BitcoinExchange::fetchDatabase(const std::string &filename)
             continue;
         std::map<std::string, double> cur = split(bufferPlacement, ',', true);
         _database.insert(cur.begin(), cur.end());
-        // std::cout << GREEN << "Line read sucessfully" << RESET << std::endl;
+        
     }
     return true;
 }
@@ -130,11 +130,11 @@ void BitcoinExchange::printDatabase()
                   << std::endl;
 }
 
-bool BitcoinExchange::parseDate(const std::string &date)
+ERROR BitcoinExchange::parseDate(const std::string &date)
 {
-    // Check length
+    
     if (date.size() != 10)
-        return false;
+        return DATE_ERROR;
     int dashes = 0;
     for (size_t i = 0; i < date.size(); ++i)
     {
@@ -142,20 +142,22 @@ bool BitcoinExchange::parseDate(const std::string &date)
         {
             dashes++;
             if (i != 4 && i != 7)
-                return false;
+                return DATE_ERROR;
         }
         else if (!isdigit(date[i]))
-            return false;
+            return DATE_ERROR;
     }
     if (dashes != 2)
-        return false;
+        return DATE_ERROR;
     std::istringstream dateStream(date);
     int year = 0, month = 0, day = 0;
     char dash1, dash2;
     dateStream >> year >> dash1 >> month >> dash2 >> day;
     if (dateStream.fail() || dateStream.get() != EOF)
-        return false;
-    return (dash1 == '-' && dash2 == '-') && isValidDay(month, day, year);
+        return DATE_ERROR;
+    if((dash1 == '-' && dash2 == '-') &&  !isValidDay(month, day, year))
+        return DATE_ERROR; 
+    return OK;
 }
 
 ERROR BitcoinExchange::checkValue(double value)
@@ -171,7 +173,6 @@ ERROR BitcoinExchange::checkValue(const std::string &s)
 {
     bool dot_found = false;
     bool digit_found = false;
-    bool sign_found = false;
     bool f_found = false;
 
     if (s.empty())
@@ -180,10 +181,7 @@ ERROR BitcoinExchange::checkValue(const std::string &s)
         return UNKNOWN;
     size_t start = 0;
     if (s[0] == '+' || s[0] == '-')
-    {
-        sign_found = true;
         start = 1;
-    }
     for (size_t index = start; index < s.size(); ++index)
     {
         char ch = s[index];
@@ -221,7 +219,7 @@ int BitcoinExchange::daysSinceEpoch(int year, int month, int day)
     {
         days += daysInMonth[m];
         if (m == 1 && isLeapYear(year))
-            days++; // Add extra day for leap year
+            days++; 
     }
     days += day;
     return days;
@@ -234,7 +232,7 @@ int BitcoinExchange::daysBetweenDates(const std::string &date1, const std::strin
     if (!date1Parts || !date2Parts)
     {
         std::cerr << "Invalid dates provided." << std::endl;
-        return -1; // Error code
+        return -1; 
     }
     int days1 = daysSinceEpoch(date1Parts[0], date1Parts[1], date1Parts[2]);
     int days2 = daysSinceEpoch(date2Parts[0], date2Parts[1], date2Parts[2]);
@@ -278,6 +276,8 @@ map::iterator BitcoinExchange::getClosest(string date)
             continue;
         int curDays = daysSinceEpoch(curDateParts[0], curDateParts[1], curDateParts[2]);
         int diff = abs(curDays - days);
+        if(curDays > abs(days))
+            break;
         if (diff < minDiff)
         {
             minDiff = diff;
@@ -287,13 +287,51 @@ map::iterator BitcoinExchange::getClosest(string date)
     return closest;
 }
 
-BitcoinExchange::BitcoinExchange(const std::string &filename)
+BitcoinExchange::BitcoinExchange()
 {
     if (!this->fetchDatabase("data.csv"))
     {
         std::cerr << "Error fetching database." << std::endl;
         throw std::runtime_error("Error fetching database.");
     }
+}
+
+int BitcoinExchange::printError(ERROR error, int nLine, string &line, map &m) {
+    switch (error) {
+    case NEGATIVE:
+        std::cerr << "Line: " << nLine << RED << " Error: " << errorToString(error) << ": " << m.begin()->second << RESET << std::endl;
+        break;
+    case RANGE:
+        std::cerr << "Line: " << nLine << RED << " Error: " << errorToString(error) << ": " << m.begin()->second << RESET << std::endl;
+        break;
+    case UNKNOWN:
+        std::cerr << "Line: " << nLine << RED << " Error: " << errorToString(error) << ": " << line << RESET << std::endl;
+        break;
+    case F_CHARACTER:
+        std::cerr << "Line: " << nLine << RED << " Error: " << errorToString(error) << ": " << line << RESET << std::endl;
+        break;
+    case EMPTY:
+        std::cerr << "Line: " << nLine << RED << " Error: " << errorToString(error)  << RESET << std::endl;
+        break;
+    case DOT_ERROR:
+        std::cerr << "Line: " << nLine << RED << " Error: " << errorToString(error) << ": " << line << RESET << std::endl;
+        break;
+    case DATE_ERROR:
+        std::cerr << "Line: " << nLine << RED << " Error: " << errorToString(error) << ": " << m.begin()->first << RESET << std::endl;
+        break;
+    default:
+        std::cerr << "Line: " << nLine << RED << " Error: " << errorToString(UNKNOWN) << RESET << std::endl;
+        break;
+    }
+    return error;
+}
+
+bool BitcoinExchange::handleErrorAndContinue(ERROR error, int nline, string sline, std::map<std::string, double> &cur) {
+    if (error != OK) {
+        this->printError(error, nline, sline, cur);
+        return true;
+    }
+    return false;
 }
 
 void BitcoinExchange::Analyze(const std::string &input)
@@ -310,7 +348,6 @@ void BitcoinExchange::Analyze(const std::string &input)
     while (getline(inputFile, bufferPlacement))
     {
         line++;
-        ERROR error;
         bufferPlacement = trim(bufferPlacement);
         bufferPlacement = removeComment(bufferPlacement);
         int numberofPipes = 0;
@@ -321,7 +358,7 @@ void BitcoinExchange::Analyze(const std::string &input)
                 numberofPipes++;
         if(numberofPipes != 1)
         {
-            std::cerr << "L: " << line << RED << " Error: Number of arguments " << bufferPlacement << std::endl;
+            std::cerr << "Line: " << line << RED << " Error: Number of arguments " << bufferPlacement << RESET << std::endl;
             continue;
         }
         std::map<std::string, double> cur = split(bufferPlacement, '|', true);
@@ -329,31 +366,19 @@ void BitcoinExchange::Analyze(const std::string &input)
             continue;
         if ("date" == cur.begin()->first)
             continue;
-        if (!parseDate(cur.begin()->first))
-        {
-            std::cerr << "L: " << line << RED << " Error invalid date -> " << cur.begin()->first << RESET << std::endl;
+        if (handleErrorAndContinue(parseDate(cur.begin()->first), line, bufferPlacement, cur))
             continue;
-        }
         string valr_str = trim(bufferPlacement.substr(bufferPlacement.find_first_of('|') + 1));
-        if ((error = checkValue(cur.begin()->second)) != OK)
-        {
-            std::cerr << "L: " << line << RED << " Error invalid value -> " << static_cast<int>(cur.begin()->second) << " -> " << errorToString(error) << RESET << std::endl;
+        if (handleErrorAndContinue(checkValue(valr_str), line, bufferPlacement, cur))
             continue;
-        }
-        if((error = checkValue(valr_str)) != OK)
-        {
-            std::cerr << "L: " << line << RED << " Error invalid value 2 -> " << valr_str << " -> " << errorToString(error) << RESET << std::endl;
+        if(handleErrorAndContinue(checkValue(cur.begin()->second), line, bufferPlacement, cur))
             continue;
-        }
-
-
         map::iterator closest = getClosest(cur.begin()->first);
         if (closest == _database.end())
         {
-            std::cerr << "L: " << line << RED << " Error couldn't find closest date -> " << cur.begin()->first << RESET << std::endl;
+            std::cerr << "Error: Couldn't find the closest date." << std::endl;
             continue;
         }
-        // Ouput Sample = {Date[Value] | ClosestDate[ClosestValue] | Result}
         std::cout << GREEN << cur.begin()->first << RESET << "[" << BLUE << cur.begin()->second << RESET << "] | "
           << YELLOW << closest->first << RESET << "[" << MAGENTA << closest->second << RESET << "] | "
           << CYAN << closest->second * cur.begin()->second << RESET << std::endl;

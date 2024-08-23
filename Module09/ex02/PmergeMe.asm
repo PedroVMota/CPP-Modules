@@ -1,5 +1,5 @@
 	.section	__TEXT,__text,regular,pure_instructions
-	.build_version macos, 14, 0	sdk_version 14, 2
+	.build_version macos, 14, 0	sdk_version 14, 5
 	.section	__DWARF,__apple_names,regular,debug
 Lnames_begin:
 	.long	1212240712                      ; Header Magic

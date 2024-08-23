@@ -33,7 +33,11 @@ typedef std::ifstream file;
 typedef std::istringstream buffer;
 typedef std::map<string, double> map;
 
-# define INT_MAX 2147483647
+#ifndef __DARWIN_
+  #ifndef INT_MAX
+    #define INT_MAX 2147483647
+  #endif
+#endif
 
 typedef enum ERROR
 {
@@ -44,6 +48,8 @@ typedef enum ERROR
   F_CHARACTER,
   EMPTY,
   DOT_ERROR,
+  DATE_ERROR,
+  ARGUMENTS,
 } ERROR;
 
 
@@ -55,7 +61,6 @@ std::string trim(const std::string &str);
 class BitcoinExchange
 {
 private:
-  BitcoinExchange();
   BitcoinExchange(const BitcoinExchange &);
   BitcoinExchange &operator=(const BitcoinExchange &);
 
@@ -63,16 +68,18 @@ private:
 
   bool fetchDatabase(const std::string &filename);
   void printDatabase();
-  bool parseDate(const std::string &date);
+  ERROR parseDate(const std::string &date);
   ERROR checkValue(double value);
   ERROR checkValue(const std::string &s);
   int daysSinceEpoch(int year, int month, int day);
   int daysBetweenDates(const std::string &date1, const std::string &date2);
   int *getDate(const std::string &date);
   map::iterator getClosest(std::string date);
+  int printError(ERROR error, int nline, string &line, map &m);
+  bool handleErrorAndContinue(ERROR error, int nline, string sline, std::map<std::string, double> &cur);
 
 public:
-  BitcoinExchange(const std::string &filename);
+  BitcoinExchange();
   ~BitcoinExchange() {};
   void Analyze(const std::string &input);
 };
