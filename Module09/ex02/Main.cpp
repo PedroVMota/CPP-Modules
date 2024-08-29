@@ -1,31 +1,63 @@
 #include "PmergeMe.hpp"
-#include <sstream>
 #include <vector>
+#include <deque>
 #include <iostream>
-#include <iostream>
-#include <vector>
-#include "PmergeMe.hpp"
+#include <cstdlib>
+#include <ctime>
 
-int main() {
-    // Example usage with std::vector
-    std::vector<double> data;
-    data.push_back(38.9);
-    data.push_back(27.4);
-    data.push_back(43.3);
-    data.push_back(3.9);
-    data.push_back(9.7);
-    data.push_back(82.1);
-    data.push_back(10.4);
-    data.push_back(14.5);
-    data.push_back(19.2);
-
-    try {
-        PmergeMe<std::vector<double> > sorter(data);
-        std::cout << "Sorted data: ";
-        sorter.printContainer();
-    } catch (const std::exception& e) {
-        std::cerr << "An error occurred: " << e.what() << std::endl;
+int main(int argc, char** argv) {
+    if (argc < 2) {
+        std::cerr << "Error: No input provided." << std::endl;
+        return 1;
     }
+
+    std::vector<int> vec;
+    std::deque<int> deq;
+
+    for (int i = 1; i < argc; ++i) {
+        int num = std::atoi(argv[i]);
+        if (num <= 0) {
+            std::cerr << "Error: Invalid number." << std::endl;
+            return 1;
+        }
+        vec.push_back(num);
+        deq.push_back(num);
+    }
+
+    PmergeMe sorter;
+
+    // Medição de tempo para vector
+    std::clock_t startVec = std::clock();
+    sorter.sortVector(vec);
+    std::clock_t endVec = std::clock();
+    double durationVec = 1000000.0 * (endVec - startVec) / CLOCKS_PER_SEC;
+
+    // Medição de tempo para deque
+    std::clock_t startDeq = std::clock();
+    sorter.sortDeque(deq);
+    std::clock_t endDeq = std::clock();
+    double durationDeq = 1000000.0 * (endDeq - startDeq) / CLOCKS_PER_SEC;
+
+    std::cout << "Before: ";
+    for (int i = 1; i < argc; ++i) {
+        std::cout << argv[i] << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "After (Vector): ";
+    for (size_t i = 0; i < vec.size(); ++i) {
+        std::cout << vec[i] << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "After (Deque): ";
+    for (size_t i = 0; i < deq.size(); ++i) {
+        std::cout << deq[i] << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Time to process with vector: " << durationVec << " us" << std::endl;
+    std::cout << "Time to process with deque: " << durationDeq << " us" << std::endl;
 
     return 0;
 }

@@ -379,8 +379,8 @@ void BitcoinExchange::Analyze(const std::string &input)
             std::cerr << "Error: Couldn't find the closest date." << std::endl;
             continue;
         }
-        std::cout << GREEN << cur.begin()->first << RESET << "[" << BLUE << cur.begin()->second << RESET << "] | "
-          << YELLOW << closest->first << RESET << "[" << MAGENTA << closest->second << RESET << "] | "
-          << CYAN << closest->second * cur.begin()->second << RESET << std::endl;
+        std::cout << GREEN << "(" << cur.begin()->first << ", " << cur.begin()->second << ")" << RESET << " -> "
+                  << YELLOW << "(" << closest->first << ", " << closest->second << ")" << RESET << " -> "
+                  << CYAN << closest->second * cur.begin()->second << RESET << std::endl;
     }
 }

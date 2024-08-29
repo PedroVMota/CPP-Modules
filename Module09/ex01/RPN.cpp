@@ -1,4 +1,5 @@
 #include "RPN.hpp"
+
 bool RPN::isValidField(std::string &ref)
 {
   while (ref[0] == ' ')
@@ -16,11 +17,14 @@ bool RPN::isValidField(std::string &ref)
         return false;
       if ((ref[i] < '0' || ref[i] > '9') && (ref[i] != ' ' && ref[i] != '\t'))
         return false;
-      if(ref[i] == ' ' || ref[i] == '\t')
+      if (isalpha(ref[i])) // Check if the character is alphabetic
+        return false;
+      if (ref[i] == ' ' || ref[i] == '\t')
         return true;
     }
+    return true; // Return true if all characters are valid
   }
-  return true;
+  return false; // Return false if the string does not match any valid pattern
 }
 
 bool RPN::tokenize(std::string &ref)
@@ -46,7 +50,7 @@ bool RPN::tokenize(std::string &ref)
     else
     {
       std::string operand = temp.front();
-      if(operand.size() > 1)
+      if (operand.size() > 1)
         return false;
       operandCount++;
     }
@@ -57,63 +61,74 @@ bool RPN::tokenize(std::string &ref)
   return true;
 }
 
-bool RPN::calculate() {
-    std::list<std::string> temp = stack.stack;
-    std::list<double> result;
-    std::list<std::string>::iterator it = temp.begin();
-    while (it != temp.end()) {
-        std::string token = *it;
-        if (stack.isOperator(token)) {
-            if (result.size() < 2) {
-                std::cout << RED << "Error: " << RESET << "Not enough operands" << std::endl;
-                return false;
-            }
-            double b = result.back();
-            result.pop_back();
-            double a = result.back();
-            result.pop_back();
-            double res;
-            if (token == "+") res = a + b;
-            else if (token == "-") res = a - b;
-            else if (token == "*") res = a * b;
-            else if (token == "/") {
-                if (b == 0) {
-                    std::cout << RED << "Error: " << RESET << "Division by zero" << std::endl;
-                    return false;
-                }
-                res = a / b;
-            }
-            result.push_back(res);
-        } else {
-            try {
-                double num = std::stod(token);
-                result.push_back(num);
-            } catch (const std::invalid_argument&) {
-                std::cout << RED << "Error: " << RESET << "Invalid number" << std::endl;
-                return false;
-            }
+bool RPN::calculate()
+{
+  std::list<std::string> temp = stack.stack;
+  std::list<double> result;
+  std::list<std::string>::iterator it = temp.begin();
+  while (it != temp.end())
+  {
+    std::string token = *it;
+    if (stack.isOperator(token))
+    {
+      if (result.size() < 2)
+      {
+        std::cout << RED << "Error: " << RESET << "Not enough operands" << std::endl;
+        return false;
+      }
+      double b = result.back();
+      result.pop_back();
+      double a = result.back();
+      result.pop_back();
+      double res;
+      if (token == "+")
+        res = a + b;
+      else if (token == "-")
+        res = a - b;
+      else if (token == "*")
+        res = a * b;
+      else if (token == "/")
+      {
+        if (b == 0)
+        {
+          std::cout << RED << "Error: " << RESET << "Division by zero" << std::endl;
+          return false;
         }
-        it++;
+        res = a / b;
+      }
+      result.push_back(res);
     }
+    else
+    {
+      try
+      {
+        double num = this->stringToDouble(token);
+        result.push_back(num);
+      }
+      catch (const std::invalid_argument &)
+      {
+        std::cout << RED << "Error: " << RESET << "Invalid number" << std::endl;
+        return false;
+      }
+    }
+    it++;
+  }
 
-    if (result.size() == 1) {
-        std::cout << "Result: " << result.back() << std::endl;
-        return true;
-    }
-    return false;
+  if (result.size() == 1)
+  {
+    std::cout << "Result: " << result.back() << std::endl;
+    return true;
+  }
+  return false;
 }
-
 
 RPN::RPN(std::string &ref) : stack()
 {
-  std::cout << YELLOW << "Analizing: " << RESET << ref << std::endl;
   if (!tokenize(ref))
   {
     std::cout << RED << "Error: " << RESET << "Invalid expression" << std::endl;
     return;
   }
-  std::cout << GREEN << "Success: " << RESET << "Expression is valid" << std::endl;
-  // inverse stack
   std::list<std::string> inverse;
   while (!stack.stack.empty())
   {

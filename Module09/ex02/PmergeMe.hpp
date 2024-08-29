@@ -2,32 +2,27 @@
 #define PMERGEME_HPP
 
 #include <vector>
+#include <deque>
 #include <iostream>
-#include <algorithm>
-#include <stdexcept>
+#include <iterator>
 
-template<typename Container>
 class PmergeMe {
-private:
-    Container& container;
-
-    // Merge function to merge two halves
-    void merge(typename Container::size_type left, typename Container::size_type middle, typename Container::size_type right);
-
-    // Insertion sort for smaller subsequences
-    void insertionSort(typename Container::size_type left, typename Container::size_type right);
-
-    // Modified merge sort that uses insertion sort for small sizes
-    void mergeInsertionSort(typename Container::size_type left, typename Container::size_type right);
-
 public:
-    // Constructor that initializes and sorts the container
-    explicit PmergeMe(Container& container);
+    PmergeMe();
+    ~PmergeMe();
 
-    // Utility function to print container elements
-    void printContainer() const;
+    void sortVector(std::vector<int>& vec);
+    void sortDeque(std::deque<int>& deq);
+
+private:
+    void mergeInsertionSortVector(std::vector<int>& vec, int left, int right);
+    void mergeInsertionSortDeque(std::deque<int>& deq, int left, int right);
+    void insertionSortVector(std::vector<int>& vec, int left, int right);
+    void insertionSortDeque(std::deque<int>& deq, int left, int right);
+    void insertIntoVector(std::vector<int>& vec, int start, int end);
+    void insertIntoDeque(std::deque<int>& deq, int start, int end);
+
+    static const int THRESHOLD = 10; // Limite para usar Insertion Sort
 };
 
-#include "PmergeMe.tpp"
-
-#endif // PMERGEME_HPP
+#endif
